@@ -1,16 +1,99 @@
 # rogue_adventure
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+このプロジェクトは、Flutter Flameを使用して開発されたゲームです。以下のディレクトリ構成を採用しています。
 
-A few resources to get you started if this is your first Flutter project:
+Markdown
+# ディレクトリ構成
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## ディレクトリ
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### assets/
+
+- 画像、音源、フォントなどのアセットファイルを格納します。
+    - `images/`: 背景、キャラクター、オブジェクトなどの画像ファイル
+    - `sounds/`: BGM、効果音などの音源ファイル
+    - `fonts/`: ゲーム内で使用するフォントファイル
+
+### lib/
+
+- ゲームのソースコードを格納します。
+    - `main.dart`: アプリの起動処理を担当します。
+    - `game/`: ゲーム本体のコードを格納します。
+        - `my_game.dart`: ゲームクラスを定義します。
+        - `components/`: ゲーム画面に表示されるコンポーネントを格納します。
+        - `entities/`: ゲーム世界のエンティティを格納します。
+        - `scenes/`: ゲームの各シーンを格納します。
+        - `systems/`: ゲーム全体の動作を制御するシステムを格納します。
+    - `utils/`: ゲーム開発で汎用的に使用されるユーティリティコードを格納します。
+
+### pubspec.yaml
+
+- プロジェクトで使用されるライブラリや依存関係を定義します。
+
+### README.md
+
+- プロジェクトの概要、使用方法などを説明します。
+
+## 各ディレクトリ詳細
+
+#### assets/
+
+ゲームに必要な画像、音源、フォントなどを格納します。
+
+#### images/
+
+背景、キャラクター、オブジェクトなどの画像ファイルを格納します。
+
+#### sounds/
+
+BGM、効果音などの音源ファイルを格納します。
+
+#### fonts/
+
+ゲーム内で使用するフォントファイルを格納します。
+
+### lib/
+
+ゲーム本体のコードや、ゲーム開発で汎用的に使用されるユーティリティコードなどを格納します。
+
+#### main.dart
+
+アプリの起動処理を担当します。
+
+#### game/
+
+ゲーム本体のコードを格納します。
+
+##### my_game.dart
+
+ゲームクラスを定義します。
+
+##### components/
+
+ゲーム画面に表示されるコンポーネントを格納します。
+
+##### entities/
+
+ゲーム世界のエンティティを格納します。
+
+##### scenes/
+
+ゲームの各シーンを格納します。
+
+##### systems/
+
+ゲーム全体の動作を制御するシステムを格納します。
+
+#### utils/
+
+ゲーム開発で汎用的に使用されるユーティリティコードを格納します。
+
+### pubspec.yaml
+
+プロジェクトで使用されるライブラリや依存関係を定義します。
+
+### README.md
+
+プロジェクトの概要、使用方法などを説明します。
