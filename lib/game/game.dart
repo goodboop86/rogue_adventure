@@ -7,6 +7,16 @@ import 'package:rogue_adventure/entities/field.dart';
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Map<int, Sprite> _spriteMap;
+  late double oneBlockSize = 32.0;
+  MainGame() : super(
+      camera: CameraComponent.withFixedResolution(width: 600, height: 800)
+  );
+
+  @override
+  void onGameResize(Vector2 canvasSize) {
+    oneBlockSize = canvasSize.x / 16;
+    super.onGameResize(canvasSize);
+  }
 
   @override
   Future<void> onLoad() async {
@@ -34,4 +44,13 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       }
     }
   }
+
+  @override
+  void update(double dt) {
+    // TODO: implement update
+    super.update(dt);
+  }
+
+  @override
+  void render
 }

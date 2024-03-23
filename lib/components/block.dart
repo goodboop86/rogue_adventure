@@ -2,7 +2,8 @@ import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import 'package:rogue_adventure/systems/config.dart';
 
-class Block extends SpriteAnimationComponent with HasGameRef{
+class Block extends PositionComponent with HasGameRef{
+
 
   @override
   Future<void> onLoad() async {
