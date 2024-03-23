@@ -1,4 +1,2 @@
-
-
-const double oneBlockSize = 32.0;
+const double oneBlockSize = 64.0;
 const int playerCameraWallWidth = 20;
