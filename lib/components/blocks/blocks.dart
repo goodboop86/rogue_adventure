@@ -1,10 +1,8 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
-import 'package:flame/sprite.dart';
 import 'package:rogue_adventure/components/blocks/floor.dart';
 import 'package:rogue_adventure/components/blocks/wall.dart';
-import 'package:rogue_adventure/systems/config.dart';
 
 import '../../systems/block_type.dart';
 

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
 
 enum BlockType {
   floor(0, 'floor.png'),

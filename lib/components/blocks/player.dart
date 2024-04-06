@@ -1,5 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame/palette.dart';
+import 'package:flame/text.dart';
 import 'package:rogue_adventure/systems/key_direction.dart';
 import 'package:rogue_adventure/systems/sprite_direction.dart';
 import 'package:rogue_adventure/systems/config.dart';
@@ -7,6 +9,8 @@ import 'package:rogue_adventure/systems/config.dart';
 import '../../game/game.dart';
 
 class Player extends SpriteComponent with HasGameReference<MainGame> {
+  late Vector2 coordinate;
+  late TextComponent text;
   KeyDirection currentPlayerDirection = KeyDirection.right;
   SpriteDirection currentSpriteDirection = SpriteDirection.right;
 
@@ -27,69 +31,99 @@ class Player extends SpriteComponent with HasGameReference<MainGame> {
     currentPlayerDirection = direction;
   }
 
+  @override
+  void onLoad() async {
+    text = TextComponent(
+      anchor: Anchor.bottomLeft,
+      text: '$coordinate',
+      textRenderer: TextPaint(
+        style: TextStyle(
+          fontSize: 12.0,
+          color: BasicPalette.white.color,
+        ),
+      ),
+      position: Vector2.all(0.0),
+    );
+    add(text);
+  }
+
   moving() {
+    Vector2 distance;
     switch (currentPlayerDirection.name) {
       case 'upLeft':
         game.camera.follow(this);
+        distance = Vector2(-oneBlockSize, -oneBlockSize);
         add(MoveEffect.by(
-          Vector2(-oneBlockSize, -oneBlockSize),
+          distance,
           EffectController(duration: 0.15),
         ));
       case 'up':
         game.camera.follow(this);
+        distance = Vector2(0, -oneBlockSize);
         add(MoveEffect.by(
-          Vector2(0, -oneBlockSize),
+          distance,
           EffectController(duration: 0.15),
         ));
       case 'upRight':
         game.camera.follow(this);
+        distance = Vector2(oneBlockSize, -oneBlockSize);
         add(MoveEffect.by(
-          Vector2(oneBlockSize, -oneBlockSize),
+          distance,
           EffectController(duration: 0.15),
         ));
       case 'left':
         game.camera.follow(this);
+        distance = Vector2(-oneBlockSize, 0);
         add(MoveEffect.by(
-          Vector2(-oneBlockSize, 0),
+          distance,
           EffectController(duration: 0.15),
         ));
       case 'center':
         game.camera.stop();
+        distance = Vector2(0, -oneBlockSize / 2);
         add(SequenceEffect([
           MoveEffect.by(
-            Vector2(0, -oneBlockSize / 2),
+            distance,
             EffectController(duration: 0.075),
           ),
           MoveEffect.by(
-            Vector2(0, oneBlockSize / 2),
+            distance,
             EffectController(duration: 0.075),
           ),
         ]));
       case 'right':
         game.camera.follow(this);
+        distance = Vector2(oneBlockSize, 0);
         add(MoveEffect.by(
-          Vector2(oneBlockSize, 0),
+          distance,
           EffectController(duration: 0.15),
         ));
       case 'downLeft':
         game.camera.follow(this);
+        distance = Vector2(-oneBlockSize, oneBlockSize);
         add(MoveEffect.by(
-          Vector2(-oneBlockSize, oneBlockSize),
+          distance,
           EffectController(duration: 0.15),
         ));
       case 'down':
         game.camera.follow(this);
+        distance = Vector2(0, oneBlockSize);
         add(MoveEffect.by(
-          Vector2(0, oneBlockSize),
+          distance,
           EffectController(duration: 0.15),
         ));
       case 'downRight':
         game.camera.follow(this);
+        distance = Vector2(oneBlockSize, oneBlockSize);
         add(MoveEffect.by(
-          Vector2(oneBlockSize, oneBlockSize),
+          distance,
           EffectController(duration: 0.15),
         ));
+      default:
+        throw Exception();
     }
+    coordinate += distance/oneBlockSize;
+    text.text ='$coordinate';
   }
 
   void moveTo(KeyDirection direction) {
@@ -99,10 +133,10 @@ class Player extends SpriteComponent with HasGameReference<MainGame> {
   }
 
   Player({
-    required Vector2 size,
-    required Sprite? sprite,
-    required Vector2 position,
-    required Anchor anchor,
-
-  }) : super(size: size, sprite: sprite, position: position, anchor: anchor);
+    required super.size,
+    required super.sprite,
+    required super.position,
+    required super.anchor,
+    required this.coordinate,
+  });
 }

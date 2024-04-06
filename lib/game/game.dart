@@ -33,9 +33,6 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     super.onLoad();
     playerSprite = await Sprite.load('player.png');
 
-
-
-
     await createFloor();
 
     await createPlayer();
@@ -56,7 +53,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
           sprite: spriteMap[blockId],
           position: Vector2(j * oneBlockSize,  i *  oneBlockSize),
           anchor: Anchor.center,
-          coordinate: (x: j, y: i),
+          coordinate: Vector2(j.toDouble(),i.toDouble()),
           blockType: BlockType.fromId(blockId),
         );
         world.add(component);
@@ -64,12 +61,14 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     }
   }
 
+  Vector2 pos = Vector2(6, 4);
   createPlayer() {
     player = Player(
       size: Vector2.all(oneBlockSize),
       sprite: playerSprite,
-      position: Vector2(6 * oneBlockSize,  4 *  oneBlockSize),
+      position: Vector2(pos.x * oneBlockSize,  pos.y *  oneBlockSize),
       anchor: Anchor.center,
+      coordinate: pos,
     );
     world.add(player);
   }
