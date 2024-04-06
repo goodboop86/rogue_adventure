@@ -1,21 +1,22 @@
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rogue_adventure/systems/config.dart';
 
-class Block extends PositionComponent with HasGameRef{
+class Block extends SpriteComponent with HasGameRef{
 
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    await _loadAnimations();
   }
 
-  Future<void> _loadAnimations() async {
-    final spriteSheet = SpriteSheet(
-      image: await gameRef.images.load('crate.png'),
-      srcSize: Vector2.all(oneBlockSize),
-    );
+  @override
+  onGameResize(Vector2 canvasSize) {
+    debugPrint('canvasSize: $canvasSize');
+    size = Vector2.all(canvasSize.x / 16);
+    position = position * canvasSize.x / 16;
+    super.onGameResize(canvasSize);
   }
 
   Block()
