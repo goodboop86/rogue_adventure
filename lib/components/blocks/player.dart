@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
+import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/systems/key_direction.dart';
 import 'package:rogue_adventure/systems/sprite_direction.dart';
 import 'package:rogue_adventure/systems/config.dart';
@@ -80,14 +81,16 @@ class Player extends SpriteComponent with HasGameReference<MainGame> {
         ));
       case 'center':
         game.camera.stop();
-        distance = Vector2(0, -oneBlockSize / 2);
+        Vector2 distanceFrom = Vector2(0, -oneBlockSize / 2);
+        Vector2 distanceTo = Vector2(0, oneBlockSize / 2);
+        distance = Vector2(0, 0);
         add(SequenceEffect([
           MoveEffect.by(
-            distance,
+            distanceFrom,
             EffectController(duration: 0.075),
           ),
           MoveEffect.by(
-            distance,
+            distanceTo,
             EffectController(duration: 0.075),
           ),
         ]));
@@ -124,6 +127,8 @@ class Player extends SpriteComponent with HasGameReference<MainGame> {
     }
     coordinate += distance/oneBlockSize;
     text.text ='$coordinate';
+    var floorComponent = game.findByKeyName('floorComponent') as FloorComponent;
+    floorComponent.glowAroundComponentFromCoordinate(coordinate);
   }
 
   void moveTo(KeyDirection direction) {

@@ -6,6 +6,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
+import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/entities/field.dart';
 import 'package:rogue_adventure/systems/block_type.dart';
 
@@ -19,7 +20,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Sprite playerSprite;
 
   @override
-  bool debugMode = true;
+  bool debugMode = false;
   //late double oneBlockSize = 64.0;
 
   @override
@@ -43,8 +44,13 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   createFloor() async {
+
+
     Map<int, Sprite> spriteMap = await BlockType.getAllSpriteMap();
     List<List<int>> floorList = floor;
+    FloorComponent floorComponent = FloorComponent(
+        key: ComponentKey.named('floorComponent')
+    );
     for(int i = 0; i < floorList.length; i++) {
       for (int j =0; j < floorList[i].length; j++) {
         int blockId = floorList[i][j];
@@ -56,9 +62,10 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
           coordinate: Vector2(j.toDouble(),i.toDouble()),
           blockType: BlockType.fromId(blockId),
         );
-        world.add(component);
+        floorComponent.add(component);
       }
     }
+    world.add(floorComponent);
   }
 
   Vector2 pos = Vector2(6, 4);
