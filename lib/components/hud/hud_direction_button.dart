@@ -4,8 +4,8 @@ import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
-import 'package:rogue_adventure/components/key_direction.dart';
-import 'package:rogue_adventure/components/player.dart';
+import 'package:rogue_adventure/systems/key_direction.dart';
+import 'package:rogue_adventure/components/blocks/player.dart';
 
 class HudDirectionButtons {
   final List<HudButtonComponent> _hudButtonComponentList = [];

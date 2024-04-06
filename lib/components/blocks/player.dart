@@ -1,10 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:rogue_adventure/components/key_direction.dart';
-import 'package:rogue_adventure/components/sprite_direction.dart';
+import 'package:rogue_adventure/systems/key_direction.dart';
+import 'package:rogue_adventure/systems/sprite_direction.dart';
 import 'package:rogue_adventure/systems/config.dart';
 
-import '../game/game.dart';
+import '../../game/game.dart';
 
 class Player extends SpriteComponent with HasGameReference<MainGame> {
   KeyDirection currentPlayerDirection = KeyDirection.right;

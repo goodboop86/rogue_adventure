@@ -1,19 +1,23 @@
 
-import 'package:flame/camera.dart';
+import 'dart:ui';
+
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:rogue_adventure/entities/field.dart';
+import 'package:rogue_adventure/systems/block_type.dart';
 
-import '../components/hud_direction_button.dart';
-import '../components/player.dart';
+import '../components/blocks/blocks.dart';
+import '../components/hud/hud_direction_button.dart';
+import '../components/blocks/player.dart';
 import '../systems/config.dart';
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
-  late Map<int, Sprite> _spriteMap;
   late Player player;
+  late Sprite playerSprite;
+
   @override
   bool debugMode = true;
   //late double oneBlockSize = 64.0;
@@ -27,34 +31,33 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    final floorSprite = await Sprite.load('floor.png');
-    final blockSprite = await Sprite.load('wall.png');
-    final playerSprite = await Sprite.load('player.png');
+    playerSprite = await Sprite.load('player.png');
 
-    _spriteMap = {
-      0 : floorSprite,
-      1 : blockSprite,
-      2 : playerSprite,
-    };
 
-    createFloor();
 
-    createPlayer();
 
-    createHud();
+    await createFloor();
+
+    await createPlayer();
+
+    await createHud();
 
     camera.follow(player);
   }
 
-  createFloor() {
+  createFloor() async {
+    Map<int, Sprite> spriteMap = await BlockType.getAllSpriteMap();
     List<List<int>> floorList = floor;
     for(int i = 0; i < floorList.length; i++) {
       for (int j =0; j < floorList[i].length; j++) {
-        final component = SpriteComponent(
+        int blockId = floorList[i][j];
+        final component = Blocks.create(
           size: Vector2.all(oneBlockSize),
-          sprite: _spriteMap[floorList[i][j]],
+          sprite: spriteMap[blockId],
           position: Vector2(j * oneBlockSize,  i *  oneBlockSize),
           anchor: Anchor.center,
+          coordinate: (x: j, y: i),
+          blockType: BlockType.fromId(blockId),
         );
         world.add(component);
       }
@@ -64,7 +67,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   createPlayer() {
     player = Player(
       size: Vector2.all(oneBlockSize),
-      sprite: _spriteMap[2],
+      sprite: playerSprite,
       position: Vector2(6 * oneBlockSize,  4 *  oneBlockSize),
       anchor: Anchor.center,
     );
