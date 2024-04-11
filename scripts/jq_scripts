@@ -1,0 +1,4 @@
+# jq スクリプトメモ
+
+# 任意のフィールドに要素を追加する
+% cat assets/json/sprite.json | jq '.block_0_199.[] | map( .foo |= . + "bar")'

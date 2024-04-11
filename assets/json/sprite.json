@@ -1,106 +1,106 @@
 {
-  "block_401_600": {
+  "block_0_199": {
     "wall": {
       "wall": {
-        "id": 1,
-        "asset": "wall1.png",
-        "size": 8
+        "id": 0,
+        "path": "wall1.png",
+        "size": 32
       }
     },
     "floor": {
       "floor": {
-        "id": 0,
-        "asset": "floor1.png",
-        "size": 8
+        "id": 1,
+        "path": "floor1.png",
+        "size": 32
       }
     },
     "_others": {
     }
   },
-  "character_1_200": {
+  "character_200_399": {
     "enemy": {
       "floor": {
-        "id": 101,
-        "asset": "enemy1.png",
-        "size": 8
+        "id": 200,
+        "path": "enemy1.png",
+        "size": 32
       }
     },
     "npc": {
       "npc": {
-        "id": 101,
-        "asset": "npc1.png",
-        "size": 8
+        "id": 201,
+        "path": "npc1.png",
+        "size": 32
       }
     },
     "player": {
       "player": {
-        "id": 1,
-        "asset": "player1.png",
-        "size": 8
+        "id": 202,
+        "path": "player1.png",
+        "size": 32
       }
     }
   },
-  "item_201_400": {
+  "item_400_599": {
     "accessory": {
       "floor": {
-        "id": 101,
-        "asset": "accessory1.png",
-        "size": 8
+        "id": 400,
+        "path": "accessory1.png",
+        "size": 32
       }
     },
     "food": {
       "food": {
-        "id": 101,
-        "asset": "food1.png",
-        "size": 8
+        "id": 401,
+        "path": "food1.png",
+        "size": 32
       }
     },
     "scroll": {
       "scroll": {
-        "id": 101,
-        "asset": "scroll1.png",
-        "size": 8
+        "id": 402,
+        "path": "scroll1.png",
+        "size": 32
       }
     },
     "weapon": {
       "weapon": {
-        "id": 1,
-        "asset": "weapon1.png",
-        "size": 8
+        "id": 403,
+        "path": "weapon1.png",
+        "size": 32
       }
     },
     "weed": {
       "weed": {
-        "id": 101,
-        "asset": "weed1.png",
-        "size": 8
+        "id": 404,
+        "path": "weed1.png",
+        "size": 32
       }
     }
   },
-  "ui_601_800": {
+  "ui_600_799": {
     "button": {
       "hud_direction_button": {
-        "id": 10,
-        "asset": "hud_direction_button.png",
-        "size": 32
+        "id": 600,
+        "path": "hud_direction_button.png",
+        "size": 8
       },
       "hud_direction_down_button": {
-        "id": 11,
-        "asset": "hud_direction_down_button.png",
-        "size": 32
+        "id": 601,
+        "path": "hud_direction_down_button.png",
+        "size": 8
       }
     },
     "effect": {
       "effect": {
-        "id": 10,
-        "asset": "effect1.png",
+        "id": 602,
+        "path": "effect1.png",
         "size": 32
       }
     },
     "icon": {
       "icon": {
-        "id": 10,
-        "asset": "icon1.png",
+        "id": 603,
+        "path": "icon1.png",
         "size": 32
       }
     },
