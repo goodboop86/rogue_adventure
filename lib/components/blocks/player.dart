@@ -142,6 +142,7 @@ class Player extends SpriteComponent with HasGameReference<MainGame> {
     required super.sprite,
     required super.position,
     required super.anchor,
+    required super.key,
     required this.coordinate,
   });
 }

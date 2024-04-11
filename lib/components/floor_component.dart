@@ -24,6 +24,6 @@ class FloorComponent extends Component {
     }
   }
   FloorComponent({
-    required ComponentKey key,
-  }) : super(key: key);
+    required super.key,
+  });
 }

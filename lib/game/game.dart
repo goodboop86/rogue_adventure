@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
@@ -7,6 +8,7 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
+import 'package:rogue_adventure/components/hud/hud_creator.dart';
 import 'package:rogue_adventure/entities/field.dart';
 import 'package:rogue_adventure/systems/block_type.dart';
 
@@ -14,6 +16,8 @@ import '../components/blocks/blocks.dart';
 import '../components/hud/hud_direction_button.dart';
 import '../components/blocks/player.dart';
 import '../systems/config.dart';
+import '../systems/hud_type.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Player player;
@@ -29,8 +33,16 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     super.onGameResize(canvasSize);
   }
 
+  Future<String> loadAsset() async {
+    return rootBundle.loadString('json/asset.json');
+  }
+
   @override
   Future<void> onLoad() async {
+
+    String jsonString = await loadAsset();
+    var jsonData = jsonDecode(jsonString);
+
     super.onLoad();
     playerSprite = await Sprite.load('player.png');
 
@@ -76,17 +88,13 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       position: Vector2(pos.x * oneBlockSize,  pos.y *  oneBlockSize),
       anchor: Anchor.center,
       coordinate: pos,
+        key: ComponentKey.named('Player')
     );
     world.add(player);
   }
 
   createHud() async {
-    List<HudButtonComponent> hudButtons = await HudDirectionButtons(screenSize: camera.viewport.size).getHudDirectionButtons(player);
-    PositionComponent hudButton = PositionComponent(
-        children: hudButtons,
-        anchor: Anchor.bottomLeft
-    );
-    this.camera.viewport.add(hudButton);
+    //camera.viewport.add(HudCreator.create(game: game, hudType: HudType.directionButton));
   }
 
   @override

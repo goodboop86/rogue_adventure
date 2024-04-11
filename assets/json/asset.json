@@ -1,0 +1,185 @@
+{
+  "block_401_600": {
+    "wall": {
+      "floor": {
+        "id": 0,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 1,
+        "asset": "block.png",
+        "size": 8
+      }
+    },
+    "floor": {
+      "floor": {
+        "id": 0,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 1,
+        "asset": "block.png",
+        "size": 8
+      }
+    },
+    "_others": {
+      "floor": {
+        "id": 0,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 1,
+        "asset": "block.png",
+        "size": 8
+      }
+    }
+  },
+  "character_1_200": {
+    "enemy": {
+      "floor": {
+        "id": 101,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 102,
+        "asset": "block.png",
+        "size": 8
+      }
+    },
+    "npc": {
+      "floor": {
+        "id": 101,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 102,
+        "asset": "block.png",
+        "size": 8
+      }
+    },
+    "player": {
+      "player": {
+        "id": 1,
+        "asset": "player.png",
+        "size": 8
+      }
+    }
+  },
+  "item_201_400": {
+    "accessory": {
+      "floor": {
+        "id": 101,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 102,
+        "asset": "block.png",
+        "size": 8
+      }
+    },
+    "food": {
+      "floor": {
+        "id": 101,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 102,
+        "asset": "block.png",
+        "size": 8
+      }
+    },
+    "scroll": {
+      "floor": {
+        "id": 101,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 102,
+        "asset": "block.png",
+        "size": 8
+      }
+    },
+    "weapon": {
+      "floor": {
+        "id": 1,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 2,
+        "asset": "block.png",
+        "size": 8
+      }
+    },
+    "weed": {
+      "floor": {
+        "id": 101,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 102,
+        "asset": "block.png",
+        "size": 8
+      }
+    }
+  },
+  "ui_601_800": {
+    "button": {
+      "hud_direction_button": {
+        "id": 10,
+        "asset": "hud_direction_button.png",
+        "size": 32
+      },
+      "hud_direction_down_button": {
+        "id": 11,
+        "asset": "hud_direction_button.png",
+        "size": 32
+      }
+    },
+    "effect": {
+      "hud_direction_button": {
+        "id": 10,
+        "asset": "hud_direction_button.png",
+        "size": 32
+      },
+      "hud_direction_down_button": {
+        "id": 11,
+        "asset": "hud_direction_button.png",
+        "size": 32
+      }
+    },
+    "icon": {
+      "hud_direction_button": {
+        "id": 10,
+        "asset": "hud_direction_button.png",
+        "size": 32
+      },
+      "hud_direction_down_button": {
+        "id": 11,
+        "asset": "hud_direction_button.png",
+        "size": 32
+      }
+    },
+    "_others": {
+      "floor": {
+        "id": 0,
+        "asset": "block.png",
+        "size": 8
+      },
+      "wall": {
+        "id": 1,
+        "asset": "block.png",
+        "size": 8
+      }
+    }
+  }
+}
