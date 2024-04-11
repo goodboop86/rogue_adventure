@@ -1,3 +1,5 @@
-class JsonModel {
+class SpriteSchema {
+
+
 
 }

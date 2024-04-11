@@ -34,7 +34,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   Future<String> loadAsset() async {
-    return rootBundle.loadString('json/asset.json');
+    return rootBundle.loadString('json/sprite.json');
   }
 
   @override

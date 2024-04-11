@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 
 enum BlockType {
-  floor(0, 'floor.png'),
-  wall(1, 'wall.png'),
-  player(2, 'player.png');
+  floor(0, 'floor1.png'),
+  wall(1, 'wall1.png'),
+  player(2, 'player1.png');
 
   final int id;
   final String assetName;
