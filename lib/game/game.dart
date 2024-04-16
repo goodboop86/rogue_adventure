@@ -9,14 +9,14 @@ import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/components/hud/hud_creator.dart';
-import 'package:rogue_adventure/entities/field.dart';
-import 'package:rogue_adventure/systems/block_type.dart';
+import 'package:rogue_adventure/models/entity/field.dart';
+import 'package:rogue_adventure/utils/enums/component/block_type.dart';
 
 import '../components/blocks/blocks.dart';
 import '../components/hud/hud_direction_button.dart';
 import '../components/blocks/player.dart';
 import '../systems/config.dart';
-import '../systems/hud_type.dart';
+import '../utils/enums/ui/hud_type.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {

@@ -9,7 +9,7 @@ import 'package:flame/sprite.dart';
 import 'package:rogue_adventure/components/hud/hud_creator.dart';
 import 'package:rogue_adventure/components/hud/hud_product.dart';
 import 'package:rogue_adventure/game/game.dart';
-import 'package:rogue_adventure/systems/key_direction.dart';
+import 'package:rogue_adventure/utils/enums/ui/key_direction.dart';
 import 'package:rogue_adventure/components/blocks/player.dart';
 
 class HudDirectionButton  {

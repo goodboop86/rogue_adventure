@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:rogue_adventure/components/hud/hud_direction_button.dart';
 import 'package:rogue_adventure/game/game.dart';
 
-import '../../systems/hud_type.dart';
+import '../../utils/enums/ui/hud_type.dart';
 
 abstract class HudCreator extends Component with HasGameRef<MainGame> {
 
