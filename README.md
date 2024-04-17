@@ -19,7 +19,7 @@ Markdown
 ### lib/
 
 - ゲームのソースコードを格納します。
-    - `main.dart`: アプリの起動処理を担当します。
+    - `main.dart`: アプリの起動処理を担hitします。
     - `game/`: ゲーム本体のコードを格納します。
         - `my_game.dart`: ゲームクラスを定義します。
         - `components/`: ゲーム画面に表示されるコンポーネントを格納します。
@@ -60,7 +60,7 @@ BGM、効果音などの音源ファイルを格納します。
 
 #### main.dart
 
-アプリの起動処理を担当します。
+アプリの起動処理を担hitします。
 
 #### game/
 
@@ -280,4 +280,90 @@ ConditionType <-- Condition
 
 
 ```
+
+アイテムのライフサイクル
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> have[ALL]
+    have[ALL] --> drop[ALL]
+    have[ALL] --> throw[ALL]
+    have[ALL] --> consume[consumable]
+    have[ALL] --> equip[equipment]
+    drop[ALL] --> have[ALL]
+    throw[ALL] --> hit[ALL]
+    equip[equipment] --> unEquip[equipment]
+    equip[equipment]--> throw[ALL]
+    equip[equipment]--> drop[ALL]
+    unEquip[equipment]--> drop[ALL]
+    unEquip[equipment] --> equip[equipment]
+    unEquip[equipment] --> throw[ALL]
+    consume[consumable] --> [*]
+    drop[ALL] --> [*]
+    hit[ALL] --> [*]
+    throw[ALL] --> drop[ALL]
+
+    
+
+```
+
+ゲームの進行 プロセス
+## 図
+```mermaid
+stateDiagram-v2
+    [*] --> battleState
+    battleState --> [*]
+    
+    state battleState {
+        state isPlayerActionable <<choice>>
+        [*] --> isPlayerActionable
+        isPlayerActionable --> playerAction: isPlayerActionable=true
+        isPlayerActionable --> isEnemyActionable: isPlayerActionable=false
+        
+        state playerAction {
+            state isPlayerMovable <<choice>>
+            [*] --> isPlayerMovable
+            isPlayerMovable --> playerMove: isPlayerMovable=true
+            state isPlayerAttackable <<choice>>
+            [*] --> isPlayerAttackable
+            isPlayerAttackable --> playerAttack: isPlayerAttackable=true
+            state isPlayerConsumable <<choice>>
+            [*] --> isPlayerConsumable
+            isPlayerConsumable --> playerConsume: isPlayerConsumable=true
+        }
+
+        state isEnemyActionable <<choice>>
+        
+        playerAction --> isEnemyActionable
+        isEnemyActionable --> enemyAction: isEnemyActionable=true
+        isEnemyActionable --> isEnemyKilled: isEnemyActionable=false
+
+        state enemyAction {
+            state isEnemyMovable <<choice>>
+            [*] --> isEnemyMovable
+            isEnemyMovable --> EnemyMove: isEnemyMovable=true
+            state isEnemyAttackable <<choice>>
+            [*] --> isEnemyAttackable
+            isEnemyAttackable --> EnemyAttack: isEnemyAttackable=true
+            state isEnemyConsumable <<choice>>
+            [*] --> isEnemyConsumable
+            isEnemyConsumable --> EnemyConsume: isPlayerConsumable=true
+        }
+
+        state isEnemyKilled <<choice>>
+        isEnemyKilled --> [*]: isEnemyKilled=true
+        isEnemyKilled --> isPlayerActionable: isEnemyKilled=false
+
+        state isPlayerDied <<choice>>
+        enemyAction --> isPlayerDied
+        isPlayerDied --> [*]: isPlayerDied=true
+        isPlayerDied --> isPlayerActionable: isPlayerDied=false
+        
+        enemyAction --> [*]
+    }
+```
+
+
+
+
 
