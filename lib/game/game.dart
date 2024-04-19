@@ -8,15 +8,14 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
-import 'package:rogue_adventure/components/hud/hud_creator.dart';
 import 'package:rogue_adventure/models/entity/field.dart';
-import 'package:rogue_adventure/utils/enums/component/block_type.dart';
+import 'package:rogue_adventure/enums/component/block_type.dart';
 
 import '../components/blocks/blocks.dart';
 import '../components/hud/hud_direction_button.dart';
 import '../components/blocks/player.dart';
 import '../systems/config.dart';
-import '../utils/enums/ui/hud_type.dart';
+import '../enums/ui/hud_type.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
@@ -42,9 +41,11 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
 
     String jsonString = await loadAsset();
     var jsonData = jsonDecode(jsonString);
+    jsonData["0_199_block"]["wall"];
+
 
     super.onLoad();
-    playerSprite = await Sprite.load('player.png');
+    playerSprite = await Sprite.load('player1.png');
 
     await createFloor();
 

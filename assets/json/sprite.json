@@ -1,9 +1,15 @@
 {
   "NOTE": "スプライトを利用するオブジェクトの設定値を管理する。設定値はファイル名、スプライトの大きさ一部オブジェクトが持つ初期値のみを含み、他は含めない。",
-  "block_0_199": {
+  "0_199_block": {
     "wall": {
       "wall": {
         "id": 0,
+        "path": "wall1.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      },
+      "dummy": {
+        "id": 1,
         "path": "wall1.png",
         "sprite_width": 32,
         "sprite_height": 32
@@ -11,7 +17,7 @@
     },
     "floor": {
       "floor": {
-        "id": 1,
+        "id": 10,
         "path": "floor1.png",
         "sprite_width": 32,
         "sprite_height": 32
@@ -20,7 +26,7 @@
     "_others": {
     }
   },
-  "character_200_399": {
+  "200_399_character": {
     "enemy": {
       "floor": {
         "id": 200,
@@ -37,7 +43,7 @@
     },
     "npc": {
       "npc": {
-        "id": 201,
+        "id": 210,
         "path": "npc1.png",
         "sprite_width": 32,
         "sprite_height": 32
@@ -45,7 +51,7 @@
     },
     "player": {
       "player": {
-        "id": 202,
+        "id": 220,
         "path": "player1.png",
         "sprite_width": 32,
         "sprite_height": 32,
@@ -58,10 +64,10 @@
       }
     }
   },
-  "equipment_400_599": {
+  "400_599_equipment": {
     "weapon": {
       "poison_sword": {
-        "id": 403,
+        "id": 400,
         "path": "weapon1.png",
         "sprite_width": 32,
         "sprite_height": 32,
@@ -77,7 +83,7 @@
         }]
       },
       "sleep_sword": {
-        "id": 404,
+        "id": 401,
         "path": "weapon1.png",
         "sprite_width": 32,
         "sprite_height": 32,
@@ -96,7 +102,7 @@
     },
     "shield": {
       "shield": {
-        "id": 405,
+        "id": 410,
         "path": "weapon1.png",
         "sprite_width": 32,
         "sprite_height": 32,
@@ -115,7 +121,7 @@
     },
     "accessory": {
       "accessory": {
-        "id": 400,
+        "id": 420,
         "path": "accessory1.png",
         "sprite_width": 32,
         "sprite_height": 32,
@@ -126,10 +132,10 @@
       }
     }
   },
-  "item_400_599": {
+  "600_799_consumable": {
     "food": {
       "food": {
-        "id": 401,
+        "id": 600,
         "path": "food1.png",
         "sprite_width": 32,
         "sprite_height": 32,
@@ -140,7 +146,7 @@
     },
     "scroll": {
       "scroll": {
-        "id": 402,
+        "id": 610,
         "path": "scroll1.png",
         "sprite_width": 32,
         "sprite_height": 32
@@ -148,29 +154,29 @@
     },
     "weed": {
       "weed": {
-        "id": 404,
+        "id": 620,
         "path": "weed1.png",
         "sprite_width": 32,
         "sprite_height": 32
       }
     }
   },
-  "ui_600_799": {
+  "800_999_ui": {
     "button": {
       "hud_direction_button": {
-        "id": 600,
+        "id": 800,
         "path": "hud_direction_button.png",
         "sprite_width": 8
       },
       "hud_direction_down_button": {
-        "id": 601,
+        "id": 801,
         "path": "hud_direction_down_button.png",
         "sprite_width": 8
       }
     },
     "effect": {
       "effect": {
-        "id": 602,
+        "id": 810,
         "path": "effect1.png",
         "sprite_width": 32,
         "sprite_height": 32
@@ -178,7 +184,7 @@
     },
     "icon": {
       "icon": {
-        "id": 603,
+        "id": 820,
         "path": "icon1.png",
         "sprite_width": 32,
         "sprite_height": 32

@@ -3,8 +3,8 @@ import 'package:flame/effects.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
-import 'package:rogue_adventure/utils/enums/ui/key_direction.dart';
-import 'package:rogue_adventure/utils/enums/component/sprite_direction.dart';
+import 'package:rogue_adventure/enums/ui/key_direction.dart';
+import 'package:rogue_adventure/enums/component/sprite_direction.dart';
 import 'package:rogue_adventure/systems/config.dart';
 
 import '../../game/game.dart';

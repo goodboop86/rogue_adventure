@@ -15,6 +15,10 @@ enum BlockType {
     return BlockType.values.firstWhere((element) => element.id == id);
   }
 
+  static BlockType fromString(int id) {
+    return BlockType.values.firstWhere((element) => element.id == id);
+  }
+
   static Future<Map<int, Sprite>> getAllSpriteMap() async {
     final Map<int, Sprite> spriteMap = {};
     for (final blockType in BlockType.values) {

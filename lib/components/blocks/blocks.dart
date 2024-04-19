@@ -6,7 +6,7 @@ import 'package:flame/text.dart';
 import 'package:rogue_adventure/components/blocks/floor.dart';
 import 'package:rogue_adventure/components/blocks/wall.dart';
 
-import '../../utils/enums/component/block_type.dart';
+import '../../enums/component/block_type.dart';
 
 class Blocks extends SpriteComponent with HasGameRef{
   late Vector2 coordinate;

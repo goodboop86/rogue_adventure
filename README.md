@@ -363,6 +363,62 @@ stateDiagram-v2
     }
 ```
 
+AdventureEffectの種類
+(有効化: AdventureEffectが発火しうる状態になる)
+- キャラクターに能力が付与される
+- 能力が付与された状態で条件により発動する
+  - 攻撃成功/失敗時の一定確率
+  - 
+  - 防御成功/失敗時の一定確率
+  - 
+  - 常時
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> expireble
+    expireble --> slip: 行動できるがターンごとに弱いネガティブ要素がある
+    slip --> poison/burn/bleed
+    expireble --> incapacitated: 行動が制限される
+    incapacitated --> stun/sleep/freeze/charm
+    expireble --> deBuff: 行動でき、一定ターンネガティブ要素が続く
+    [*] --> immediate
+```
+
+
+AdventureEffectの発火タイミング
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> have[ALL]
+    have[ALL] --> drop[ALL]
+    have[ALL] --> throw[ALL]
+    have[ALL] --> have[ALL]
+    have[ALL] --> consume[consumable]
+    have[ALL] --> equip[equipment]
+    drop[ALL] --> have[ALL]
+    throw[ALL] --> hit[ALL]
+    equip[equipment] --> unEquip[equipment]
+    equip[equipment] --> beforeAttack[equipment]
+    beforeAttack[equipment] --> attack[equipment]
+    attack[equipment] --> afterAttack[equipment]
+    equip[equipment] --> beforeAttack[equipment]
+    equip[equipment] --> beforeAttack[equipment]
+    beforeBlock[equipment] --> block[equipment]
+    block[equipment] --> afterBlock[equipment]
+    equip[equipment]--> throw[ALL]
+    equip[equipment]--> drop[ALL]
+    unEquip[equipment]--> drop[ALL]
+    unEquip[equipment] --> equip[equipment]
+    unEquip[equipment] --> throw[ALL]
+    consume[consumable] --> [*]
+    drop[ALL] --> [*]
+    hit[ALL] --> [*]
+    throw[ALL] --> drop[ALL]
+    
+
+```
+
 
 
 
