@@ -39,14 +39,6 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     super.onGameResize(canvasSize);
   }
 
-
-  List<SpriteEntity> getSpriteEntityFromCategory(
-      {required SpriteCategoryType category}) {
-    return spriteEntities
-        .where((e) => e.spriteSubCategory == category)
-        .toList();
-  }
-
   SpriteEntity getSpriteEntityFromID({required int id}) {
     return spriteEntities.firstWhere((e) => e.id == id);
   }
@@ -70,10 +62,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   createBlock() async {
-    List<SpriteEntity> newSpriteMap =
-        getSpriteEntityFromCategory(category: SpriteCategoryType.block);
 
-    // Map<int, Sprite> spriteMap = await BlockType.getAllSpriteMap();
     List<List<int>> floorList = floor;
     FloorComponent floorComponent =
         FloorComponent(key: ComponentKey.named('floorComponent'));
@@ -105,7 +94,9 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   createUI() async {
-    //camera.viewport.add(HudCreator.create(game: game, hudType: HudType.directionButton));
+    List<HudButtonComponent> buttons = await HudDirectionButton().getHudDirectionButtons(player);
+    Component hunButton = Component(children: buttons);
+    camera.viewport.addAll(buttons);
   }
 
   @override

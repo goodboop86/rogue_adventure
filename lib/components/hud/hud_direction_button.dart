@@ -20,11 +20,6 @@ class HudDirectionButton  {
   late List<HudButtonComponent> hudButtonComponents = [];
 
 
-  @override
-  Future<void> load() async {
-    buttons = await Flame.images.load('hud_direction_button.png');
-    downButtons = await Flame.images.load('hud_direction_down_button.png');
-  }
 
   // @override
   // create({required HasGameRef<MainGame> game}){
@@ -98,9 +93,9 @@ class HudDirectionButton  {
 
 
   Future<List<HudButtonComponent>> getHudDirectionButtons(Player player) async {
-    Image buttons = await Flame.images.load('hud_direction_button.png');
+    Image buttons = await Flame.images.load('ui/button/hud_direction_button.png');
     Image downButtons =
-    await Flame.images.load('hud_direction_down_button.png');
+    await Flame.images.load('ui/button/hud_direction_down_button.png');
 
     final hudDirectionButtonsSpriteSheet =
     SpriteSheet(image: buttons, srcSize: Vector2.all(imgSize));
