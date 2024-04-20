@@ -32,7 +32,6 @@ class SpriteAssets {
     CharacterType.values,
     ConsumableType.values,
     EquipmentType.values,
-    UIType.values
   ];
 
   //List<SpriteEntity> assets = [];

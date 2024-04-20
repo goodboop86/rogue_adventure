@@ -20,7 +20,7 @@ class Player extends Character {
   var rightSide = KeyDirection.rightSide;
   var otherSide = KeyDirection.otherSide;
 
-  void updatePlayerSprite(KeyDirection direction) {
+  void updatePlayerFacing(KeyDirection direction) {
     if (currentSpriteDirection == SpriteDirection.left &&
         rightSide.contains(direction)) {
       flipHorizontallyAroundCenter();
@@ -49,7 +49,10 @@ class Player extends Character {
     add(text);
   }
 
-  moving() {
+  moveTo(KeyDirection direction) {
+    print(direction.name);
+    updatePlayerFacing(direction);
+
     Vector2 distance;
     switch (currentPlayerDirection.name) {
       case 'upLeft':
@@ -132,11 +135,6 @@ class Player extends Character {
     floorComponent.glowAroundComponentFromCoordinate(coordinate);
   }
 
-  void moveTo(KeyDirection direction) {
-    print(direction.name);
-    updatePlayerSprite(direction);
-    moving();
-  }
 
   Player({
     required super.sprite,

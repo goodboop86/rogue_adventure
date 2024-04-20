@@ -13,6 +13,7 @@ import 'package:rogue_adventure/assets/image/category/ui_type.dart';
 import 'package:rogue_adventure/assets/image/common_type.dart';
 import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
+import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/models/entity/field.dart';
 import 'package:rogue_adventure/enums/component/block_type.dart';
@@ -26,6 +27,7 @@ import 'package:flutter/services.dart' show rootBundle;
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Player player;
+  late Enemy enemy;
   late Sprite playerSprite;
   late List<SpriteEntity> spriteEntities;
 
@@ -62,7 +64,6 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   createBlock() async {
-
     List<List<int>> floorList = floor;
     FloorComponent floorComponent =
         FloorComponent(key: ComponentKey.named('floorComponent'));
@@ -81,16 +82,26 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     world.add(floorComponent);
   }
 
-  Vector2 pos = Vector2(6, 4);
+
 
   createCharacter() {
+    Vector2 playerPos = Vector2(6, 4);
     player =
         Character.initialize(entity: getSpriteEntityFromID(id: 200)) as Player;
     player
-      ..position = Vector2(pos.x * oneBlockSize, pos.y * oneBlockSize)
+      ..position = Vector2(playerPos.x * oneBlockSize, playerPos.y * oneBlockSize)
       ..anchor = Anchor.center
-      ..coordinate = pos;
-    world.add(player);
+      ..coordinate = playerPos;
+
+    Vector2 enemyPos = Vector2(8, 4);
+    enemy =
+    Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
+    enemy
+      ..position = Vector2(enemyPos.x * oneBlockSize, enemyPos.y * oneBlockSize)
+      ..anchor = Anchor.center
+      ..coordinate = enemyPos;
+
+    world.addAll([player, enemy]);
   }
 
   createUI() async {
