@@ -10,11 +10,7 @@ class Wall extends Blocks {
 
 
   Wall({
-    required super.size,
-    required super.sprite,
-    required super.position,
-    required super.anchor,
-    required super.coordinate,
+    required super.blockEnum,
   });
 
 }

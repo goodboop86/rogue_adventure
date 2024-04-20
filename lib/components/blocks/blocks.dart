@@ -5,14 +5,19 @@ import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
 import 'package:rogue_adventure/components/blocks/floor.dart';
 import 'package:rogue_adventure/components/blocks/wall.dart';
+import 'package:rogue_adventure/assets/image/block_type.dart';
+import 'package:rogue_adventure/assets/image/common_type.dart';
 
 import '../../enums/component/block_type.dart';
 
-class Blocks extends SpriteComponent with HasGameRef{
+abstract class Blocks extends SpriteComponent with HasGameRef{
   late Vector2 coordinate;
   late TextComponent text;
+  late BlockType blockEnum;
 
   get getCoordinate => coordinate;
+
+  void initialize();
 
   @override
   void onLoad() {
@@ -31,11 +36,7 @@ class Blocks extends SpriteComponent with HasGameRef{
   }
 
   Blocks({
-    required super.size,
-    required super.sprite,
-    required super.position,
-    required super.anchor,
-    required this.coordinate,
+    required this.blockEnum
   });
 
 
@@ -43,9 +44,20 @@ class Blocks extends SpriteComponent with HasGameRef{
 
     switch(blockType) {
       case BlockType.floor:
-        return Floor(size: size, sprite: sprite, position: position, anchor: anchor, coordinate: coordinate);
       case BlockType.wall:
-        return Wall(size: size, sprite: sprite, position: position, anchor: anchor, coordinate: coordinate);
+      default:
+        throw Exception();
+
+    }
+  }
+
+  factory Blocks.initialize({required BlockType blockEnum}) {
+
+    switch(blockEnum.spriteSubType) {
+      case SpriteSubCategoryType.floorBlock:
+        return Floor(blockEnum: blockEnum);
+      case SpriteSubCategoryType.wallBlock:
+        return Wall(blockEnum: blockEnum);
       default:
         throw Exception();
 

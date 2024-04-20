@@ -8,11 +8,9 @@ class Floor extends Blocks {
   final bool isWalkable = true;
 
   Floor({
-    required super.size,
-    required super.sprite,
-    required super.position,
-    required super.anchor,
-    required super.coordinate,
-  });
+    required super.blockEnum
+  }){
+    blockEnum.
+  };
 
 }

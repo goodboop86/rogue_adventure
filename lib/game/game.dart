@@ -7,6 +7,8 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
+import 'package:rogue_adventure/assets/image/common_type.dart';
+import 'package:rogue_adventure/assets/image/enum_loader.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/models/entity/field.dart';
 import 'package:rogue_adventure/enums/component/block_type.dart';
@@ -39,9 +41,10 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   @override
   Future<void> onLoad() async {
 
+    Map<SpriteCategoryType, Map<SpriteSubCategoryType, SpriteEntity>> assets = await SpriteTypeLoader.loadAssets();
+
     String jsonString = await loadAsset();
     var jsonData = jsonDecode(jsonString);
-    jsonData["0_199_block"]["wall"];
 
 
     super.onLoad();
