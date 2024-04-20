@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
+import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/enums/ui/key_direction.dart';
 import 'package:rogue_adventure/enums/component/sprite_direction.dart';
@@ -9,7 +10,7 @@ import 'package:rogue_adventure/systems/config.dart';
 
 import '../../game/game.dart';
 
-class Player extends SpriteComponent with HasGameReference<MainGame> {
+class NPC extends Character {
   late Vector2 coordinate;
   late TextComponent text;
   KeyDirection currentPlayerDirection = KeyDirection.right;
@@ -137,12 +138,10 @@ class Player extends SpriteComponent with HasGameReference<MainGame> {
     moving();
   }
 
-  Player({
-    required super.size,
+  NPC({
     required super.sprite,
-    required super.position,
-    required super.anchor,
+    required super.size,
     required super.key,
-    required this.coordinate,
+    required super.gameParam,
   });
 }

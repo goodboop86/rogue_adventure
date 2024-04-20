@@ -1,9 +1,9 @@
 // アイテムの希少度
-import 'package:rogue_adventure/assets/image/block_type.dart';
-import 'package:rogue_adventure/assets/image/character_type.dart';
-import 'package:rogue_adventure/assets/image/consumable_type.dart';
-import 'package:rogue_adventure/assets/image/equipment_type.dart';
-import 'package:rogue_adventure/assets/image/ui_type.dart';
+import 'package:rogue_adventure/assets/image/category/block_type.dart';
+import 'package:rogue_adventure/assets/image/category/character_type.dart';
+import 'package:rogue_adventure/assets/image/category/consumable_type.dart';
+import 'package:rogue_adventure/assets/image/category/equipment_type.dart';
+import 'package:rogue_adventure/assets/image/category/ui_type.dart';
 
 
 enum RarityType { common, uncommon, rare, epic, legendary, mythic }
@@ -35,6 +35,7 @@ enum SpriteCategoryType {
   const SpriteCategoryType(this.myType);
 }
 
+// サブカテゴリ
 enum SpriteSubCategoryType {
   floorBlock,
   wallBlock,

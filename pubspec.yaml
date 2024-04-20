@@ -23,5 +23,19 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/image/
     - assets/json/
+    - assets/
+    - assets/images/block/floor/
+    - assets/images/block/wall/
+    - assets/images/character/enemy/
+    - assets/images/character/player/
+    - assets/images/character/npc/
+    - assets/images/consumable/food/
+    - assets/images/consumable/scroll/
+    - assets/images/consumable/weed/
+    - assets/images/equipment/weapon/
+    - assets/images/equipment/shield/
+    - assets/images/equipment/accessory/
+    - assets/images/ui/button/
+    - assets/images/ui/effect/
+    - assets/images/ui/icon/

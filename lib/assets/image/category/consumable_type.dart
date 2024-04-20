@@ -2,7 +2,7 @@ import 'package:rogue_adventure/assets/image/common_type.dart';
 
 enum ConsumableType {
   food1(
-      0, SpriteSubCategoryType.foodConsumable, "images/consumable/food/food1.png", {
+      400, SpriteSubCategoryType.foodConsumable, "consumable/food/food1.png", {
     "price": 10,
     "heal": 10,
     "type": SpriteSubCategoryType.foodConsumable,
@@ -10,11 +10,10 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/consumable/food/food1.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
   food2(
-      1, SpriteSubCategoryType.foodConsumable, "images/consumable/food/food2.png", {
+      401, SpriteSubCategoryType.foodConsumable, "consumable/food/food2.png", {
     "price": 10,
     "heal": 10,
     "type": SpriteSubCategoryType.foodConsumable,
@@ -22,11 +21,10 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/consumable/food/food2.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
   food3(
-      2, SpriteSubCategoryType.foodConsumable, "images/consumable/food/food3.png", {
+      402, SpriteSubCategoryType.foodConsumable, "consumable/food/food3.png", {
     "price": 10,
     "heal": 10,
     "type": SpriteSubCategoryType.foodConsumable,
@@ -34,11 +32,10 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/consumable/food/food3.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  scroll1(0, SpriteSubCategoryType.scrollConsumable,
-      "images/consumable/scroll/scroll1.png", {
+  scroll0(450, SpriteSubCategoryType.scrollConsumable,
+      "consumable/scroll/scroll1.png", {
     "price": 10,
     "heal": 10,
     "type": SpriteSubCategoryType.scrollConsumable,
@@ -46,11 +43,10 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/consumable/scroll/scroll1.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  scroll2(1, SpriteSubCategoryType.scrollConsumable,
-      "images/consumable/scroll/scroll2.png", {
+  scroll1(451, SpriteSubCategoryType.scrollConsumable,
+      "consumable/scroll/scroll2.png", {
     "price": 10,
     "heal": 10,
     "type": SpriteSubCategoryType.scrollConsumable,
@@ -58,11 +54,10 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/consumable/scroll/scroll2.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  scroll3(2, SpriteSubCategoryType.scrollConsumable,
-      "images/consumable/scroll/scroll3.png", {
+  scroll2(452, SpriteSubCategoryType.scrollConsumable,
+      "consumable/scroll/scroll3.png", {
     "price": 10,
     "heal": 10,
     "type": SpriteSubCategoryType.scrollConsumable,
@@ -70,11 +65,10 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/consumable/scroll/scroll3.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  weed1(0, SpriteSubCategoryType.weedConsumable,
-      "images/consumable/weed/scroll1.png", {
+  weed0(500, SpriteSubCategoryType.weedConsumable,
+      "consumable/weed/weed1.png", {
     "price": 10,
     "heal": 10,
     "type": SpriteSubCategoryType.weedConsumable,
@@ -82,11 +76,10 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/consumable/weed/scroll1.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  weed2(1, SpriteSubCategoryType.weedConsumable,
-      "images/consumable/weed/scroll2.png", {
+  weed1(501, SpriteSubCategoryType.weedConsumable,
+      "consumable/weed/weed2.png", {
     "price": 10,
     "heal": 10,
     "type": SpriteSubCategoryType.weedConsumable,
@@ -94,11 +87,10 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/consumable/weed/scroll2.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  weed3(2, SpriteSubCategoryType.weedConsumable,
-      "images/consumable/weed/scroll3.png", {
+  weed2(502, SpriteSubCategoryType.weedConsumable,
+      "consumable/weed/weed3.png", {
     "price": 10,
     "heal": 10,
     "type": SpriteSubCategoryType.weedConsumable,
@@ -106,12 +98,11 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/consumable/weed/scroll3.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   });
 
   final int id;
-  final SpriteSubCategoryType spriteSubType;
+  final SpriteSubCategoryType spriteSubCategory;
   final String spritePath;
   final Map<String, dynamic> gameParam;
   final Map<String, dynamic> assetParam;
@@ -119,7 +110,7 @@ enum ConsumableType {
 
   const ConsumableType(
     this.id,
-    this.spriteSubType,
+    this.spriteSubCategory,
     this.spritePath,
     this.gameParam,
     this.assetParam,

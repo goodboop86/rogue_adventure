@@ -1,73 +1,67 @@
 import 'package:rogue_adventure/assets/image/common_type.dart';
 
 enum CharacterType {
-  player1(0, SpriteSubCategoryType.playerCharacter,
-      "images/character/player/player1.png", {
+  player0(200, SpriteSubCategoryType.playerCharacter,
+      "character/player/player1.png", {
     "life": 10,
     "energy": 10,
     "atk": 10,
     "def": 10,
     "type": SpriteSubCategoryType.playerCharacter,
   }, {
-    "path": "images/character/player/player1.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  player2(1, SpriteSubCategoryType.playerCharacter,
-      "images/character/player/player2.png", {
+  player1(201, SpriteSubCategoryType.playerCharacter,
+      "character/player/player2.png", {
     "life": 10,
     "energy": 10,
     "atk": 10,
     "def": 10,
     "type": SpriteSubCategoryType.playerCharacter,
   }, {
-    "path": "images/character/player/player2.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  player3(2, SpriteSubCategoryType.playerCharacter,
-      "images/character/player/player3.png", {
+  player2(202, SpriteSubCategoryType.playerCharacter,
+      "character/player/player3.png", {
     "life": 10,
     "energy": 10,
     "atk": 10,
     "def": 10,
     "type": SpriteSubCategoryType.playerCharacter,
   }, {
-    "path": "images/character/player/player3.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
+  }),
+  enemy0(
+  250, SpriteSubCategoryType.enemyCharacter, "character/enemy/enemy1.png", {
+  "life": 10,
+  "energy": 10,
+  "atk": 10,
+  "def": 10,
+  "type": SpriteSubCategoryType.enemyCharacter,
+  }, {
+  "sprite_size": [64.0, 64.0],
   }),
   enemy1(
-  0, SpriteSubCategoryType.enemyCharacter, "images/character/enemy/enemy1.png", {
+  251, SpriteSubCategoryType.enemyCharacter, "character/enemy/enemy2.png", {
   "life": 10,
   "energy": 10,
   "atk": 10,
   "def": 10,
   "type": SpriteSubCategoryType.enemyCharacter,
   }, {
-  "path": "images/character/enemy/enemy1.png",
-  "sprite_size": [32, 32],
+  "sprite_size": [64.0, 64.0],
   }),
   enemy2(
-  1, SpriteSubCategoryType.enemyCharacter, "images/character/enemy/enemy2.png", {
+  252, SpriteSubCategoryType.enemyCharacter, "character/enemy/enemy3.png", {
   "life": 10,
   "energy": 10,
   "atk": 10,
   "def": 10,
   "type": SpriteSubCategoryType.enemyCharacter,
   }, {
-  "path": "images/character/enemy/enemy2.png",
-  "sprite_size": [32, 32],
+  "sprite_size": [64.0, 64.0],
   }),
-  enemy3(
-  2, SpriteSubCategoryType.enemyCharacter, "images/character/enemy/enemy3.png", {
-  "life": 10,
-  "energy": 10,
-  "atk": 10,
-  "def": 10,
-  "type": SpriteSubCategoryType.enemyCharacter,
-  }, {
-  "path": "images/character/enemy/enemy3.png",
-  "sprite_size": [32, 32],
-  }),
-  npc1(0, SpriteSubCategoryType.npcCharacter, "images/character/npc/npc1.png", {
+  npc0(300, SpriteSubCategoryType.npcCharacter, "character/npc/npc1.png", {
     "life": 10,
     "energy": 10,
     "atk": 10,
@@ -77,10 +71,9 @@ enum CharacterType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/character/npc/player1.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  npc2(1, SpriteSubCategoryType.npcCharacter, "images/character/npc/npc2.png", {
+  npc1(301, SpriteSubCategoryType.npcCharacter, "character/npc/npc2.png", {
     "life": 10,
     "energy": 10,
     "atk": 10,
@@ -90,10 +83,9 @@ enum CharacterType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/character/npc/player1.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   }),
-  npc3(2, SpriteSubCategoryType.npcCharacter, "images/character/npc/npc3.png", {
+  npc2(302, SpriteSubCategoryType.npcCharacter, "character/npc/npc3.png", {
     "life": 10,
     "energy": 10,
     "atk": 10,
@@ -103,19 +95,19 @@ enum CharacterType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "path": "images/character/npc/player1.png",
-    "sprite_size": [32, 32],
+    "sprite_size": [64.0, 64.0],
   });
 
   final int id;
-  final SpriteSubCategoryType spriteSubType;
+  final SpriteSubCategoryType spriteSubCategory;
   final String spritePath;
   final Map<String, dynamic> gameParam;
   final Map<String, dynamic> assetParam;
+  final SpriteCategoryType myType = SpriteCategoryType.character;
 
   const CharacterType(
     this.id,
-    this.spriteSubType,
+    this.spriteSubCategory,
     this.spritePath,
     this.gameParam,
     this.assetParam,

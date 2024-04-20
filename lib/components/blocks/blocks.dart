@@ -3,21 +3,18 @@
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
+import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/blocks/floor.dart';
 import 'package:rogue_adventure/components/blocks/wall.dart';
-import 'package:rogue_adventure/assets/image/block_type.dart';
 import 'package:rogue_adventure/assets/image/common_type.dart';
 
-import '../../enums/component/block_type.dart';
 
-abstract class Blocks extends SpriteComponent with HasGameRef{
+abstract class Blocks extends SpriteComponent with HasGameRef {
   late Vector2 coordinate;
   late TextComponent text;
-  late BlockType blockEnum;
+  late SpriteEntity entity;
+  late Map<String, dynamic> gameParam;
 
-  get getCoordinate => coordinate;
-
-  void initialize();
 
   @override
   void onLoad() {
@@ -36,31 +33,29 @@ abstract class Blocks extends SpriteComponent with HasGameRef{
   }
 
   Blocks({
-    required this.blockEnum
+    required super.sprite,
+    required super.size,
+    required this.gameParam,
   });
 
 
-  factory Blocks.create({required size, required sprite, required position, required anchor, required coordinate, required blockType}) {
+  factory Blocks.initialize({required SpriteEntity entity}) {
+    List<double> spriteSize = entity.assetParam['sprite_size'];
+    Vector2 size = Vector2(spriteSize[0], spriteSize[1]);
 
-    switch(blockType) {
-      case BlockType.floor:
-      case BlockType.wall:
-      default:
-        throw Exception();
-
-    }
-  }
-
-  factory Blocks.initialize({required BlockType blockEnum}) {
-
-    switch(blockEnum.spriteSubType) {
+    switch (entity.spriteSubCategory) {
       case SpriteSubCategoryType.floorBlock:
-        return Floor(blockEnum: blockEnum);
+        return Floor(
+            sprite: entity.sprite,
+            size: size,
+            gameParam: entity.gameParam,);
       case SpriteSubCategoryType.wallBlock:
-        return Wall(blockEnum: blockEnum);
+        return Wall(
+            sprite: entity.sprite,
+            size: size,
+            gameParam: entity.gameParam,);
       default:
         throw Exception();
-
     }
   }
 }

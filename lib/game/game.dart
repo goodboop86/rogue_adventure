@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:ui';
 
@@ -7,15 +6,20 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
+import 'package:rogue_adventure/assets/image/category/character_type.dart';
+import 'package:rogue_adventure/assets/image/category/consumable_type.dart';
+import 'package:rogue_adventure/assets/image/category/equipment_type.dart';
+import 'package:rogue_adventure/assets/image/category/ui_type.dart';
 import 'package:rogue_adventure/assets/image/common_type.dart';
-import 'package:rogue_adventure/assets/image/enum_loader.dart';
+import 'package:rogue_adventure/assets/image/loader.dart';
+import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/models/entity/field.dart';
 import 'package:rogue_adventure/enums/component/block_type.dart';
 
 import '../components/blocks/blocks.dart';
 import '../components/hud/hud_direction_button.dart';
-import '../components/blocks/player.dart';
+import '../components/characters/player.dart';
 import '../systems/config.dart';
 import '../enums/ui/hud_type.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -23,10 +27,11 @@ import 'package:flutter/services.dart' show rootBundle;
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Player player;
   late Sprite playerSprite;
+  late List<SpriteEntity> spriteEntities;
 
   @override
   bool debugMode = false;
-  //late double oneBlockSize = 64.0;
+
 
   @override
   void onGameResize(Vector2 canvasSize) {
@@ -34,50 +39,53 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     super.onGameResize(canvasSize);
   }
 
-  Future<String> loadAsset() async {
-    return rootBundle.loadString('json/sprite.json');
+
+  List<SpriteEntity> getSpriteEntityFromCategory(
+      {required SpriteCategoryType category}) {
+    return spriteEntities
+        .where((e) => e.spriteSubCategory == category)
+        .toList();
+  }
+
+  SpriteEntity getSpriteEntityFromID({required int id}) {
+    return spriteEntities.firstWhere((e) => e.id == id);
   }
 
   @override
   Future<void> onLoad() async {
+    SpriteAssets assets = SpriteAssets();
+    var entities = await assets.loadAssets();
 
-    Map<SpriteCategoryType, Map<SpriteSubCategoryType, SpriteEntity>> assets = await SpriteTypeLoader.loadAssets();
-
-    String jsonString = await loadAsset();
-    var jsonData = jsonDecode(jsonString);
-
+    spriteEntities = entities;
 
     super.onLoad();
-    playerSprite = await Sprite.load('player1.png');
 
-    await createFloor();
+    await createBlock();
 
-    await createPlayer();
+    await createCharacter();
 
-    await createHud();
+    await createUI();
 
     camera.follow(player);
   }
 
-  createFloor() async {
+  createBlock() async {
+    List<SpriteEntity> newSpriteMap =
+        getSpriteEntityFromCategory(category: SpriteCategoryType.block);
 
-
-    Map<int, Sprite> spriteMap = await BlockType.getAllSpriteMap();
+    // Map<int, Sprite> spriteMap = await BlockType.getAllSpriteMap();
     List<List<int>> floorList = floor;
-    FloorComponent floorComponent = FloorComponent(
-        key: ComponentKey.named('floorComponent')
-    );
-    for(int i = 0; i < floorList.length; i++) {
-      for (int j =0; j < floorList[i].length; j++) {
-        int blockId = floorList[i][j];
-        final component = Blocks.create(
-          size: Vector2.all(oneBlockSize),
-          sprite: spriteMap[blockId],
-          position: Vector2(j * oneBlockSize,  i *  oneBlockSize),
-          anchor: Anchor.center,
-          coordinate: Vector2(j.toDouble(),i.toDouble()),
-          blockType: BlockType.fromId(blockId),
-        );
+    FloorComponent floorComponent =
+        FloorComponent(key: ComponentKey.named('floorComponent'));
+    for (int i = 0; i < floorList.length; i++) {
+      for (int j = 0; j < floorList[i].length; j++) {
+        int id = floorList[i][j];
+        final component =
+            Blocks.initialize(entity: getSpriteEntityFromID(id: id))
+              ..position = Vector2(j * oneBlockSize, i * oneBlockSize)
+              ..anchor = Anchor.center
+              ..coordinate = Vector2(j.toDouble(), i.toDouble());
+
         floorComponent.add(component);
       }
     }
@@ -85,19 +93,18 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   Vector2 pos = Vector2(6, 4);
-  createPlayer() {
-    player = Player(
-      size: Vector2.all(oneBlockSize),
-      sprite: playerSprite,
-      position: Vector2(pos.x * oneBlockSize,  pos.y *  oneBlockSize),
-      anchor: Anchor.center,
-      coordinate: pos,
-        key: ComponentKey.named('Player')
-    );
+
+  createCharacter() {
+    player =
+        Character.initialize(entity: getSpriteEntityFromID(id: 200)) as Player;
+    player
+      ..position = Vector2(pos.x * oneBlockSize, pos.y * oneBlockSize)
+      ..anchor = Anchor.center
+      ..coordinate = pos;
     world.add(player);
   }
 
-  createHud() async {
+  createUI() async {
     //camera.viewport.add(HudCreator.create(game: game, hudType: HudType.directionButton));
   }
 
