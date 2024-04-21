@@ -15,6 +15,7 @@ import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
+import 'package:rogue_adventure/enums/ui/key_direction.dart';
 import 'package:rogue_adventure/models/entity/field.dart';
 import 'package:rogue_adventure/enums/component/block_type.dart';
 
@@ -30,6 +31,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Enemy enemy;
   late Sprite playerSprite;
   late List<SpriteEntity> spriteEntities;
+  List<HudButtonComponent> buttons = [];
 
   @override
   bool debugMode = false;
@@ -105,13 +107,20 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   createUI() async {
-    List<HudButtonComponent> buttons = await HudDirectionButton().getHudDirectionButtons(player);
-    Component hunButton = Component(children: buttons);
+    buttons = await HudDirectionButton().getHudDirectionButtons(player);
     camera.viewport.addAll(buttons);
   }
 
   @override
   void onMount() {
+    for (var direction in KeyDirection.values) {
+      int id = direction.index;
+      HudButtonComponent button = buttons[id];
+      button
+        .onPressed = () {
+          player.moveTo(direction);
+        };
+    }
     //camera.follow(player);
     super.onMount();
   }

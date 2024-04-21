@@ -11,7 +11,6 @@ import 'package:rogue_adventure/systems/config.dart';
 import '../../game/game.dart';
 
 class Enemy extends Character {
-  late Vector2 coordinate;
   late TextComponent text;
   KeyDirection currentPlayerDirection = KeyDirection.right;
   SpriteDirection currentSpriteDirection = SpriteDirection.right;
@@ -139,6 +138,7 @@ class Enemy extends Character {
   }
 
   Enemy({
+    required super.name,
     required super.sprite,
     required super.size,
     required super.key,

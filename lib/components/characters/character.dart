@@ -6,12 +6,14 @@ import 'package:rogue_adventure/components/characters/npc.dart';
 import 'package:rogue_adventure/components/characters/player.dart';
 import 'package:rogue_adventure/game/game.dart';
 
-abstract class Character extends SpriteComponent with HasGameReference<MainGame> {
+abstract class Character extends SpriteComponent
+    with HasGameReference<MainGame> {
   late Vector2 coordinate;
   final dynamic gameParam;
-  late SpriteEntity entity;
+  final String name;
 
   Character({
+    required this.name,
     required super.sprite,
     required super.size,
     required super.key,
@@ -22,16 +24,30 @@ abstract class Character extends SpriteComponent with HasGameReference<MainGame>
     List<double> spriteSize = entity.assetParam['sprite_size'];
     Vector2 size = Vector2(spriteSize[0], spriteSize[1]);
 
-    switch(entity.spriteSubCategory) {
+    switch (entity.spriteSubCategory) {
       case SpriteSubCategoryType.playerCharacter:
-        return Player(sprite: entity.sprite, size: size, gameParam: entity.gameParam, key: ComponentKey.named(entity.name));
+        return Player(
+            name: entity.name,
+            sprite: entity.sprite,
+            size: size,
+            gameParam: entity.gameParam,
+            key: ComponentKey.unique());
       case SpriteSubCategoryType.enemyCharacter:
-        return Enemy(sprite: entity.sprite, size: size, gameParam: entity.gameParam, key: ComponentKey.named(entity.name));
+        return Enemy(
+            name: entity.name,
+            sprite: entity.sprite,
+            size: size,
+            gameParam: entity.gameParam,
+            key: ComponentKey.unique());
       case SpriteSubCategoryType.npcCharacter:
-        return NPC(sprite: entity.sprite, size: size, gameParam: entity.gameParam, key: ComponentKey.named(entity.name));
+        return NPC(
+            name: entity.name,
+            sprite: entity.sprite,
+            size: size,
+            gameParam: entity.gameParam,
+            key: ComponentKey.unique());
       default:
         throw Exception();
-
     }
-   }
+  }
 }

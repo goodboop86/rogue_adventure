@@ -118,9 +118,9 @@ class HudDirectionButton  {
           position:
           Vector2(
               direction.x * imgSize * ratio, direction.y * imgSize * ratio),
-          onPressed: () {
-            player.moveTo(direction);
-          },
+          // onPressed: () {
+          //   player.moveTo(direction);
+          // },
         ),
       );
     }
