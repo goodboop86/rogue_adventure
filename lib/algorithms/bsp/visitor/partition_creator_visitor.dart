@@ -4,7 +4,6 @@ import 'package:rogue_adventure/algorithms/bsp/area.dart';
 import 'package:rogue_adventure/algorithms/bsp/structure/partition.dart';
 import 'package:rogue_adventure/algorithms/bsp/visitor/visitor.dart';
 import 'package:rogue_adventure/algorithms/bsp/extention/list2d_extention.dart';
-import 'package:rogue_adventure/algorithms/bsp/visitor/visitor_config.dart';
 
 class PartitionCreatorVisitor extends Visitor {
   late PartitionCreatorAdjustor adjustor;

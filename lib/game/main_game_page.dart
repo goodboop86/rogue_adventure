@@ -1,4 +1,4 @@
-
+import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:rogue_adventure/game/game.dart';
@@ -11,12 +11,14 @@ class MainGamePage extends StatefulWidget {
 }
 
 class MainGamePageState extends State<MainGamePage> {
-  MainGame game = MainGame();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GameWidget(game: game),
+      body: GameWidget(
+        game: MainGame(
+            camera:
+                CameraComponent(viewport: MaxViewport())),
+      ),
     );
   }
 }

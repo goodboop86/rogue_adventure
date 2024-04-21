@@ -55,8 +55,6 @@ class Area {
     List<int> duplication =
         xRange.where((element) => anotherXRange.contains(element)).toList();
 
-    List<List<int>> tmpX = [xRange, anotherXRange];
-    // tmpX.debugPrint();
 
     if (duplication.isNotEmpty) {
       return Duplicate.X;
@@ -67,8 +65,6 @@ class Area {
     List<int> anotherYRange = List.generate(
         another.to.y - another.from.y + 1, (index) => index + another.from.y);
 
-    List<List<int>> tmpY = [yRange, anotherYRange];
-    // tmpY.debugPrint();
 
     duplication =
         yRange.where((element) => anotherYRange.contains(element)).toList();

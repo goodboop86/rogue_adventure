@@ -8,7 +8,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flame: 1.6.0
+  flame: 1.16.0
   dart_console: ^1.1.0
   logging: ^1.2.0
   http: ^1.2.1
@@ -23,4 +23,19 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/
+    - assets/json/
+    - assets/
+    - assets/images/block/floor/
+    - assets/images/block/wall/
+    - assets/images/character/enemy/
+    - assets/images/character/player/
+    - assets/images/character/npc/
+    - assets/images/consumable/food/
+    - assets/images/consumable/scroll/
+    - assets/images/consumable/weed/
+    - assets/images/equipment/weapon/
+    - assets/images/equipment/shield/
+    - assets/images/equipment/accessory/
+    - assets/images/ui/button/
+    - assets/images/ui/effect/
+    - assets/images/ui/icon/

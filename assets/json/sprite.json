@@ -1,0 +1,202 @@
+{
+  "NOTE": "スプライトを利用するオブジェクトの設定値を管理する。設定値はファイル名、スプライトの大きさ一部オブジェクトが持つ初期値のみを含み、他は含めない。",
+  "0_199_block": {
+    "wall": {
+      "wall": {
+        "id": 0,
+        "path": "wall1.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      },
+      "dummy": {
+        "id": 1,
+        "path": "wall1.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      }
+    },
+    "floor": {
+      "floor": {
+        "id": 10,
+        "path": "floor1.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      }
+    },
+    "_others": {
+    }
+  },
+  "200_399_character": {
+    "enemy": {
+      "floor": {
+        "id": 200,
+        "path": "enemy1.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "params": {
+          "hp": 100,
+          "ep": 100,
+          "atk": 10,
+          "def": 10
+        }
+      }
+    },
+    "npc": {
+      "npc": {
+        "id": 210,
+        "path": "npc1.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      }
+    },
+    "player": {
+      "player": {
+        "id": 220,
+        "path": "player1.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "params": {
+          "hp": 100,
+          "ep": 100,
+          "atk": 10,
+          "def": 10
+        }
+      }
+    }
+  },
+  "400_599_equipment": {
+    "weapon": {
+      "poison_sword": {
+        "id": 400,
+        "path": "weapon1.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "params": {
+          "atk_pow": 5,
+          "def_pow": 0
+        },
+        "battle_effect": [{
+          "type": "poison",
+          "duration": "whileEquipped",
+          "physical_range": "attackArea",
+          "probability": "always"
+        }]
+      },
+      "sleep_sword": {
+        "id": 401,
+        "path": "weapon1.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "params": {
+          "atk_pow": 2,
+          "def_pow": 0
+        },
+        "battle_effect": [{
+          "type": "sleep",
+          "when": "afterAttack",
+          "where": "attackArea",
+          "probability": "rarely",
+          "duration": "twentyTurn"
+        }]
+      }
+    },
+    "shield": {
+      "shield": {
+        "id": 410,
+        "path": "weapon1.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "params": {
+          "atk_pow": 0,
+          "def_pow": 3
+        },
+        "battle_effect": [{
+          "type": "evasion",
+          "when": "beforeBlock",
+          "where": "me",
+          "probability": "rarely",
+          "duration": "twentyTurn"
+        }]
+      }
+    },
+    "accessory": {
+      "accessory": {
+        "id": 420,
+        "path": "accessory1.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "params": {
+          "atk_pow": 2,
+          "def_pow": 2
+        }
+      }
+    }
+  },
+  "600_799_consumable": {
+    "food": {
+      "food": {
+        "id": 600,
+        "path": "food1.png",
+        "sprite_width": 32,
+        "sprite_height": 32,
+        "params": {
+          "fullness": 50
+        }
+      }
+    },
+    "scroll": {
+      "scroll": {
+        "id": 610,
+        "path": "scroll1.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      }
+    },
+    "weed": {
+      "weed": {
+        "id": 620,
+        "path": "weed1.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      }
+    }
+  },
+  "800_999_ui": {
+    "button": {
+      "hud_direction_button": {
+        "id": 800,
+        "path": "hud_direction_button.png",
+        "sprite_width": 8
+      },
+      "hud_direction_down_button": {
+        "id": 801,
+        "path": "hud_direction_down_button.png",
+        "sprite_width": 8
+      }
+    },
+    "effect": {
+      "effect": {
+        "id": 810,
+        "path": "effect1.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      }
+    },
+    "icon": {
+      "icon": {
+        "id": 820,
+        "path": "icon1.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      }
+    },
+    "_others": {
+      "dummy": {
+        "id": -1,
+        "path": "dummy.png",
+        "sprite_width": 32,
+        "sprite_height": 32
+      }
+    }
+  }
+}
