@@ -7,7 +7,7 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:rogue_adventure/game/game.dart';
-import 'package:rogue_adventure/enums/ui/key_direction.dart';
+import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/components/characters/player.dart';
 
 class HudDirectionButton  {
@@ -102,7 +102,10 @@ class HudDirectionButton  {
     final hudDirectionDownButtonsSpriteSheet =
     SpriteSheet(image: downButtons, srcSize: Vector2.all(imgSize));
 
-    for (var direction in KeyDirection.values) {
+    List<List<double>> positions = [[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]];
+    List<KeyInputType> directions = KeyInputType.directionKeys;
+    for (var direction in directions) {
+      List<double> position = positions[direction.index];
       _hudButtonComponentList.add(
         HudButtonComponent(
           button: SpriteComponent(
@@ -117,10 +120,7 @@ class HudDirectionButton  {
           ),
           position:
           Vector2(
-              direction.x * imgSize * ratio, direction.y * imgSize * ratio),
-          // onPressed: () {
-          //   player.moveTo(direction);
-          // },
+              position[0] * imgSize * ratio, position[1] * imgSize * ratio),
         ),
       );
     }

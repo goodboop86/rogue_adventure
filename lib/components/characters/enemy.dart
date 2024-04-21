@@ -4,7 +4,7 @@ import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
-import 'package:rogue_adventure/enums/ui/key_direction.dart';
+import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/enums/component/sprite_direction.dart';
 import 'package:rogue_adventure/systems/config.dart';
 
@@ -12,14 +12,14 @@ import '../../game/game.dart';
 
 class Enemy extends Character {
   late TextComponent text;
-  KeyDirection currentPlayerDirection = KeyDirection.right;
+  KeyInputType currentPlayerDirection = KeyInputType.right;
   SpriteDirection currentSpriteDirection = SpriteDirection.right;
 
-  var leftSide = KeyDirection.leftSide;
-  var rightSide = KeyDirection.rightSide;
-  var otherSide = KeyDirection.otherSide;
+  var leftSide = KeyInputType.leftDirectionKeys;
+  var rightSide = KeyInputType.rightDirectionKeys;
+  var otherSide = KeyInputType.otherDirectionKeys;
 
-  void updatePlayerSprite(KeyDirection direction) {
+  void updatePlayerSprite(KeyInputType direction) {
     if (currentSpriteDirection == SpriteDirection.left &&
         rightSide.contains(direction)) {
       flipHorizontallyAroundCenter();
@@ -131,7 +131,7 @@ class Enemy extends Character {
     floorComponent.glowAroundComponentFromCoordinate(coordinate);
   }
 
-  void moveTo(KeyDirection direction) {
+  void moveTo(KeyInputType direction) {
     print(direction.name);
     updatePlayerSprite(direction);
     moving();

@@ -4,6 +4,7 @@ import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/characters/npc.dart';
 import 'package:rogue_adventure/components/characters/player.dart';
+import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/game/game.dart';
 
 abstract class Character extends SpriteComponent
@@ -11,6 +12,8 @@ abstract class Character extends SpriteComponent
   late Vector2 coordinate;
   final dynamic gameParam;
   final String name;
+
+  moveTo(KeyInputType direction);
 
   Character({
     required this.name,

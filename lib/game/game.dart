@@ -6,18 +6,13 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
-import 'package:rogue_adventure/assets/image/category/character_type.dart';
-import 'package:rogue_adventure/assets/image/category/consumable_type.dart';
-import 'package:rogue_adventure/assets/image/category/equipment_type.dart';
-import 'package:rogue_adventure/assets/image/category/ui_type.dart';
-import 'package:rogue_adventure/assets/image/common_type.dart';
 import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
-import 'package:rogue_adventure/enums/ui/key_direction.dart';
+import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/models/entity/field.dart';
-import 'package:rogue_adventure/enums/component/block_type.dart';
+import 'package:rogue_adventure/systems/character_behavior_handler.dart';
 
 import '../components/blocks/blocks.dart';
 import '../components/hud/hud_direction_button.dart';
@@ -29,6 +24,7 @@ import 'package:flutter/services.dart' show rootBundle;
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Player player;
   late Enemy enemy;
+  late Enemy enemy2;
   late Sprite playerSprite;
   late List<SpriteEntity> spriteEntities;
   List<HudButtonComponent> buttons = [];
@@ -95,7 +91,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       ..anchor = Anchor.center
       ..coordinate = playerPos;
 
-    Vector2 enemyPos = Vector2(8, 4);
+    Vector2 enemyPos = Vector2(8, 6);
     enemy =
     Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
     enemy
@@ -103,7 +99,15 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       ..anchor = Anchor.center
       ..coordinate = enemyPos;
 
-    world.addAll([player, enemy]);
+    enemy2 =
+    Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
+    enemy2
+      ..position = Vector2(enemyPos.x * oneBlockSize, enemyPos.y * oneBlockSize)
+      ..anchor = Anchor.center
+      ..coordinate = enemyPos;
+
+    world.addAll([player, enemy, enemy2]);
+    //behaviorHandler.registerAll([player, enemy, enemy2]);
   }
 
   createUI() async {
@@ -113,7 +117,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
 
   @override
   void onMount() {
-    for (var direction in KeyDirection.values) {
+    for (var direction in KeyInputType.directionKeys) {
       int id = direction.index;
       HudButtonComponent button = buttons[id];
       button

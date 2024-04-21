@@ -229,10 +229,18 @@ packages:
     dependency: "direct main"
     description:
       name: flame
-      sha256: bb42a35fa5dabdea535daebe5b020e21a2fce8192b67b7e55cd30fed86d29f69
+      sha256: da1812e2f17a8ffd5d43ea6a83137794e7f482bcf50419bc9847b8efdb39f791
       url: "https://pub.dev"
     source: hosted
-    version: "1.16.0"
+    version: "1.17.0"
+  flame_riverpod:
+    dependency: "direct main"
+    description:
+      name: flame_riverpod
+      sha256: "842ded38cdc4eaf0160c28ca122c2b1f21d0c0410fec544da4997b30346457b9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -246,6 +254,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  flutter_riverpod:
+    dependency: "direct main"
+    description:
+      name: flutter_riverpod
+      sha256: "0f1974eff5bbe774bf1d870e406fc6f29e3d6f1c46bd9c58e7172ff68a785d7d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -467,6 +483,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  riverpod:
+    dependency: transitive
+    description:
+      name: riverpod
+      sha256: f21b32ffd26a36555e501b04f4a5dca43ed59e16343f1a30c13632b2351dfa4d
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.1"
   shelf:
     dependency: transitive
     description:
@@ -544,6 +568,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
+  state_notifier:
+    dependency: transitive
+    description:
+      name: state_notifier
+      sha256: b8677376aa54f2d7c58280d5a007f9e8774f1968d1fb1c096adcb4792fba29bb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   stream_channel:
     dependency: transitive
     description:
