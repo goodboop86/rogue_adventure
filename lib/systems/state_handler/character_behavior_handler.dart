@@ -1,8 +1,8 @@
 import 'package:logging/logging.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/characters/player.dart';
-import 'package:rogue_adventure/systems/behave_strategy.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
+import 'package:rogue_adventure/systems/strategy/character_move_operation_strategy.dart';
 
 
 class CharacterOperatorHandler {

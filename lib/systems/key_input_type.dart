@@ -22,6 +22,8 @@ enum KeyInputType {
   static get leftDirectionKeys => [upLeft, left, downLeft];
   static get rightDirectionKeys => [upRight, right, downRight];
   static get otherDirectionKeys => [up, center, down];
+  static bool isRight(KeyInputType key) => rightDirectionKeys.contains(key);
+  static bool isLeft(KeyInputType key) => leftDirectionKeys.contains(key);
 }
 
 enum KeyType {

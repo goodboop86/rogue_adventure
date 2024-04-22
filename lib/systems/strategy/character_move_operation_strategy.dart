@@ -13,11 +13,13 @@ abstract class CharacterOperationStrategy {
   late KeyInputType input;
 
   void execute() {}
+
   CharacterOperationStrategy({required this.character, required this.input});
 }
 
 class CharacterMoveOperationStrategy extends CharacterOperationStrategy {
-  CharacterMoveOperationStrategy({required super.character, required super.input});
+  CharacterMoveOperationStrategy(
+      {required super.character, required super.input});
 
   @override
   void execute() {
@@ -28,16 +30,33 @@ class CharacterMoveOperationStrategy extends CharacterOperationStrategy {
   }
 
   void updateFacing() {
+    _log.info("updating facing");
+    _log.info("current facing: ${character.currentSpriteFacing}");
+    _log.info("input: $input");
 
-    if (character.currentSpriteFacing == SpriteFacing.left &&
-        KeyInputType.rightDirectionKeys.contains(character.currentSpriteFacing)) {
+    if (shouldFlipToRight()) {
       character.flipHorizontallyAroundCenter();
       character.currentSpriteFacing = SpriteFacing.right;
-    } else if (character.currentSpriteFacing == SpriteFacing.right &&
-        KeyInputType.leftDirectionKeys.contains(character.currentSpriteFacing)) {
+    } else if (shouldFlipToLeft()) {
       character.flipHorizontallyAroundCenter();
       character.currentSpriteFacing = SpriteFacing.left;
     }
+  }
+
+  bool characterIsFacingLeft() {
+    return character.currentSpriteFacing == SpriteFacing.left;
+  }
+
+  bool characterIsFacingRight() {
+    return character.currentSpriteFacing == SpriteFacing.right;
+  }
+
+  bool shouldFlipToRight() {
+    return characterIsFacingLeft() && KeyInputType.isRight(input);
+  }
+
+  bool shouldFlipToLeft() {
+    return characterIsFacingRight() && KeyInputType.isLeft(input);
   }
 
   moveTo() {
@@ -119,9 +138,10 @@ class CharacterMoveOperationStrategy extends CharacterOperationStrategy {
       default:
         throw Exception();
     }
-    character.coordinate += distance/oneBlockSize;
-    character.text.text ='${character.coordinate}';
-    var floorComponent = character.game.findByKeyName('floorComponent') as FloorComponent;
+    character.coordinate += distance / oneBlockSize;
+    character.text.text = '${character.coordinate}';
+    var floorComponent =
+        character.game.findByKeyName('floorComponent') as FloorComponent;
     floorComponent.glowAroundComponentFromCoordinate(character.coordinate);
   }
 }

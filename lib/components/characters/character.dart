@@ -12,6 +12,7 @@ import 'package:flame/text.dart';
 
 abstract class Character extends SpriteComponent
     with HasGameReference<MainGame> {
+  final isWalkable = false;
   late TextComponent text;
   late Vector2 coordinate;
   final dynamic gameParam;
