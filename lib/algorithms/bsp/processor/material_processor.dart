@@ -15,14 +15,14 @@ class MaterialProcessor extends Processor {
   @override
   List<List<int>> process() {
     logging.info("##### ${toString()}");
-    List<StrategyType> order = [StrategyType.MST, StrategyType.CORRIDOR_CREATE];
+    List<StrategyType> order = [StrategyType.mst, StrategyType.corridorCreate];
 
     for (var strategyType in order) {
       switch (strategyType) {
-        case StrategyType.MST:
+        case StrategyType.mst:
           strategy = MSTStrategy(material: material);
           break;
-        case StrategyType.CORRIDOR_CREATE:
+        case StrategyType.corridorCreate:
           strategy = CorridorCreateStrategy(material: material);
           break;
       }
@@ -38,4 +38,4 @@ class MaterialProcessor extends Processor {
   // NOTE: contextをすぐ作り替えたいので、メンバ変数として持つのは微妙...
 }
 
-enum StrategyType { MST, CORRIDOR_CREATE }
+enum StrategyType { mst, corridorCreate }

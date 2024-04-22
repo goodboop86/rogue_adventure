@@ -1,25 +1,20 @@
-import 'dart:convert';
-import 'dart:ui';
 
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
-import 'package:flame/sprite.dart';
 import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/models/entity/field.dart';
-import 'package:rogue_adventure/systems/character_behavior_handler.dart';
+import 'package:rogue_adventure/systems/state_handler/character_storage.dart';
+import 'package:rogue_adventure/systems/turn_processer.dart';
 
 import '../components/blocks/blocks.dart';
 import '../components/hud/hud_direction_button.dart';
 import '../components/characters/player.dart';
 import '../systems/config.dart';
-import '../enums/ui/hud_type.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Player player;
@@ -28,15 +23,16 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   late Sprite playerSprite;
   late List<SpriteEntity> spriteEntities;
   List<HudButtonComponent> buttons = [];
+  CharacterStorage characters = CharacterStorage();
 
   @override
   bool debugMode = false;
 
 
   @override
-  void onGameResize(Vector2 canvasSize) {
+  void onGameResize(Vector2 size) {
     //oneBlockSize = canvasSize.x / 16;
-    super.onGameResize(canvasSize);
+    super.onGameResize(size);
   }
 
   SpriteEntity getSpriteEntityFromID({required int id}) {
@@ -107,7 +103,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       ..coordinate = enemyPos;
 
     world.addAll([player, enemy, enemy2]);
-    //behaviorHandler.registerAll([player, enemy, enemy2]);
+    characters.registerAll([player, enemy, enemy2]);
   }
 
   createUI() async {
@@ -117,12 +113,15 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
 
   @override
   void onMount() {
+
+    TurnProcessor turnProcessor = TurnProcessor(characters: characters);
     for (var direction in KeyInputType.directionKeys) {
       int id = direction.index;
       HudButtonComponent button = buttons[id];
       button
         .onPressed = () {
-          player.moveTo(direction);
+          //player.moveTo(direction);
+          turnProcessor.process(direction);
         };
     }
     //camera.follow(player);
@@ -136,5 +135,5 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     //print(camera.viewport.size);
   }
 
-  MainGame({required camera}) : super(camera: camera);
+  MainGame({required super.camera});
 }

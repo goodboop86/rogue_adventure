@@ -8,49 +8,30 @@ import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/enums/component/sprite_direction.dart';
 import 'package:rogue_adventure/systems/config.dart';
 
-import '../../game/game.dart';
-
 class Enemy extends Character {
   late TextComponent text;
-  KeyInputType currentPlayerDirection = KeyInputType.right;
-  SpriteDirection currentSpriteDirection = SpriteDirection.right;
 
   var leftSide = KeyInputType.leftDirectionKeys;
   var rightSide = KeyInputType.rightDirectionKeys;
   var otherSide = KeyInputType.otherDirectionKeys;
 
   void updatePlayerSprite(KeyInputType direction) {
-    if (currentSpriteDirection == SpriteDirection.left &&
+    if (currentSpriteFacing == SpriteFacing.left &&
         rightSide.contains(direction)) {
       flipHorizontallyAroundCenter();
-      currentSpriteDirection = SpriteDirection.right;
-    } else if (currentSpriteDirection == SpriteDirection.right &&
+      currentSpriteFacing = SpriteFacing.right;
+    } else if (currentSpriteFacing == SpriteFacing.right &&
         leftSide.contains(direction)) {
       flipHorizontallyAroundCenter();
-      currentSpriteDirection = SpriteDirection.left;
+      currentSpriteFacing = SpriteFacing.left;
     }
-    currentPlayerDirection = direction;
+    currentCharacterDirection = direction;
   }
 
-  @override
-  void onLoad() async {
-    text = TextComponent(
-      anchor: Anchor.bottomLeft,
-      text: '$coordinate',
-      textRenderer: TextPaint(
-        style: TextStyle(
-          fontSize: 12.0,
-          color: BasicPalette.white.color,
-        ),
-      ),
-      position: Vector2.all(0.0),
-    );
-    add(text);
-  }
 
   moving() {
     Vector2 distance;
-    switch (currentPlayerDirection.name) {
+    switch (currentCharacterDirection.name) {
       case 'upLeft':
         game.camera.follow(this);
         distance = Vector2(-oneBlockSize, -oneBlockSize);
@@ -131,6 +112,7 @@ class Enemy extends Character {
     floorComponent.glowAroundComponentFromCoordinate(coordinate);
   }
 
+  @override
   void moveTo(KeyInputType direction) {
     print(direction.name);
     updatePlayerSprite(direction);

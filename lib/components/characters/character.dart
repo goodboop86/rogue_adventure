@@ -4,16 +4,39 @@ import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/characters/npc.dart';
 import 'package:rogue_adventure/components/characters/player.dart';
+import 'package:rogue_adventure/enums/component/sprite_direction.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/game/game.dart';
+import 'package:flame/palette.dart';
+import 'package:flame/text.dart';
 
 abstract class Character extends SpriteComponent
     with HasGameReference<MainGame> {
+  late TextComponent text;
   late Vector2 coordinate;
   final dynamic gameParam;
   final String name;
+  KeyInputType currentCharacterDirection = KeyInputType.right;
+  SpriteFacing currentSpriteFacing = SpriteFacing.right;
 
   moveTo(KeyInputType direction);
+
+
+  @override
+  void onLoad() async {
+    text = TextComponent(
+      anchor: Anchor.bottomLeft,
+      text: '$coordinate',
+      textRenderer: TextPaint(
+        style: TextStyle(
+          fontSize: 12.0,
+          color: BasicPalette.white.color,
+        ),
+      ),
+      position: Vector2.all(0.0),
+    );
+    add(text);
+  }
 
   Character({
     required this.name,

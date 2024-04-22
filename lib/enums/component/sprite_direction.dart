@@ -1,6 +1,5 @@
-import 'package:flame/components.dart';
 
-enum SpriteDirection {
+enum SpriteFacing {
   right,
   left;
 }

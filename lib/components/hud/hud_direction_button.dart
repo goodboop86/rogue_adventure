@@ -1,12 +1,9 @@
-import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
-import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
-import 'package:rogue_adventure/game/game.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/components/characters/player.dart';
 
@@ -56,40 +53,6 @@ class HudDirectionButton  {
 
 
 
-  @override
-  void onMount() {
-    // print("HudDirectionButton onMount called");
-    // final hudDirectionButtonsSpriteSheet =
-    // SpriteSheet(image: buttons, srcSize: Vector2.all(imgSize));
-    // final hudDirectionDownButtonsSpriteSheet =
-    // SpriteSheet(image: downButtons, srcSize: Vector2.all(imgSize));
-    //
-    // Player player = game.findByKeyName('Player') as Player;
-    // Vector2 screenSize = game.camera.viewport.size;
-    // double length = screenSize.x > screenSize.y ? screenSize.x / 16 : screenSize
-    //     .y / 16;
-    //
-    // for (var direction in KeyDirection.values) {
-    //   int id = direction.index;
-    //   HudButtonComponent button = children[id];
-    //   button
-    //     ..button = SpriteComponent(
-    //       size: Vector2.all(length),
-    //       sprite:
-    //       hudDirectionButtonsSpriteSheet.getSpriteById(id),
-    //     )
-    //     ..buttonDown = SpriteComponent(
-    //       size: Vector2.all(length),
-    //       sprite: hudDirectionDownButtonsSpriteSheet
-    //           .getSpriteById(id),
-    //     )
-    //     ..position = Vector2(
-    //         direction.x * length, direction.y * length)
-    //     ..onPressed = () {
-    //       player.moveTo(direction);
-    //     };
-    // }
-  }
 
 
   Future<List<HudButtonComponent>> getHudDirectionButtons(Player player) async {

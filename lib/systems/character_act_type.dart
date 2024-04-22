@@ -1,6 +1,3 @@
-/**
- * 行動状態
- */
 enum ActType {
   playerActBegin,
   playerAct,

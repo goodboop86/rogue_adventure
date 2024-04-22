@@ -14,8 +14,8 @@ enum KeyInputType {
   other(KeyType.other),
   none(KeyType.other);
   
-  final KeyType type;
-  const KeyInputType(this.type);
+  final KeyType keyType;
+  const KeyInputType(this.keyType);
   
 
   static get directionKeys => [upLeft, up, upRight, left, center, right, downLeft, down, downRight];
@@ -31,7 +31,7 @@ enum KeyType {
   other
 }
 
-enum _CommandType {
+enum ActType {
   move,
   attack,
   consume,

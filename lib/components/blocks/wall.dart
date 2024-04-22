@@ -1,7 +1,4 @@
 
-import 'package:flame/components.dart';
-import 'package:flame/palette.dart';
-import 'package:flame/text.dart';
 
 import 'blocks.dart';
 

@@ -30,7 +30,7 @@ enum SpriteCategoryType {
   equipment(EquipmentType),
   ui(UIType);
 
-  final myType;
+  final Type myType;
 
   const SpriteCategoryType(this.myType);
 }
