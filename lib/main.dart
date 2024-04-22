@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging/logging.dart';
 import 'package:rogue_adventure/game/main_game_page.dart';
 
 final countingStreamProvider = StreamProvider<int>((ref) {
@@ -7,6 +8,10 @@ final countingStreamProvider = StreamProvider<int>((ref) {
 });
 
 void main() {
+  Logger.root.level = Level.ALL; // すべてのログを取得します。
+  Logger.root.onRecord.listen((record) {
+    print('${record.level.name}: ${record.time}: ${record.message}');
+  });
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }

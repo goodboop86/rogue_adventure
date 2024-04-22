@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:logging/logging.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/enums/component/sprite_direction.dart';
@@ -7,6 +8,7 @@ import 'package:rogue_adventure/systems/config.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 
 abstract class CharacterOperationStrategy {
+  final Logger _log = Logger('CharacterOperationStrategy');
   late Character character;
   late KeyInputType input;
 
@@ -19,6 +21,7 @@ class CharacterMoveOperationStrategy extends CharacterOperationStrategy {
 
   @override
   void execute() {
+    _log.info("executing move operation strategy");
     character.currentCharacterDirection = input;
     updateFacing();
     moveTo();
@@ -38,7 +41,7 @@ class CharacterMoveOperationStrategy extends CharacterOperationStrategy {
   }
 
   moveTo() {
-    print(character.currentCharacterDirection.name);
+    _log.info("moving to ${character.currentCharacterDirection}");
 
     Vector2 distance;
     switch (character.currentCharacterDirection) {

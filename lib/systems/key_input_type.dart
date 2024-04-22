@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 
 enum KeyInputType {
   upLeft(KeyType.move),

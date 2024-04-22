@@ -19,8 +19,6 @@ abstract class Character extends SpriteComponent
   KeyInputType currentCharacterDirection = KeyInputType.right;
   SpriteFacing currentSpriteFacing = SpriteFacing.right;
 
-  moveTo(KeyInputType direction);
-
 
   @override
   void onLoad() async {
