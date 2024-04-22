@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:logging/logging.dart';
+// ignore: unused_import
 import 'package:rogue_adventure/algorithms/bsp/extention/list2d_extention.dart';
 
 class Point {

@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 

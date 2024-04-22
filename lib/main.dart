@@ -10,6 +10,7 @@ final countingStreamProvider = StreamProvider<int>((ref) {
 void main() {
   Logger.root.level = Level.ALL; // すべてのログを取得します。
   Logger.root.onRecord.listen((record) {
+    // ignore: avoid_print
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
   WidgetsFlutterBinding.ensureInitialized();

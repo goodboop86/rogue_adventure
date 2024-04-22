@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:rogue_adventure/algorithms/bsp/area.dart';
+// ignore: unused_import
 import 'package:rogue_adventure/algorithms/bsp/extention/list2d_extention.dart';
 import 'package:rogue_adventure/algorithms/bsp/strategy/strategy.dart';
 import 'package:rogue_adventure/algorithms/bsp/strategy/strategy_config.dart';
