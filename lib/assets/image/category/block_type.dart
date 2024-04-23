@@ -6,7 +6,7 @@ enum BlockType {
     SpriteSubCategoryType.floorBlock,
     "block/floor/floor1.png",
     {
-      "sprite_size": [32.0, 32.0],
+      "sprite_size": [64.0, 64.0],
     },{}
   ),
   floor1(
@@ -14,7 +14,7 @@ enum BlockType {
     SpriteSubCategoryType.floorBlock,
     "block/floor/floor2.png",
     {
-      "sprite_size": [32.0, 32.0],
+      "sprite_size": [64.0, 64.0],
     },{}
   ),
   floor2(
@@ -22,7 +22,7 @@ enum BlockType {
     SpriteSubCategoryType.floorBlock,
     "block/floor/floor3.png",
     {
-      "sprite_size": [32.0, 32.0],
+      "sprite_size": [64.0, 64.0],
     },{}
   ),
   wall0(
@@ -30,7 +30,7 @@ enum BlockType {
     SpriteSubCategoryType.wallBlock,
     "block/wall/wall1.png",
     {
-      "sprite_size": [32.0, 32.0],
+      "sprite_size": [64.0, 64.0],
     },{}
   ),
   wall1(
@@ -38,7 +38,7 @@ enum BlockType {
     SpriteSubCategoryType.wallBlock,
     "block/wall/wall2.png",
     {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
     },{}
   ),
   wall2(
@@ -46,7 +46,7 @@ enum BlockType {
     SpriteSubCategoryType.wallBlock,
     "block/wall/wall3.png",
     {
-      "sprite_size": [32.0, 32.0],
+      "sprite_size": [64.0, 64.0],
     },{}
   );
 

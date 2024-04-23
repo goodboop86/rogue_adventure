@@ -2,7 +2,9 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:logging/logging.dart';
 import 'package:rogue_adventure/assets/image/loader.dart';
+import 'package:rogue_adventure/components/blocks/wall.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
@@ -17,6 +19,7 @@ import '../components/characters/player.dart';
 import '../systems/config.dart';
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
+  final Logger logging = Logger('MainGame');
   late Player player;
   late Enemy enemy;
   late Enemy enemy2;
@@ -26,7 +29,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   CharacterStorage characters = CharacterStorage();
 
   @override
-  bool debugMode = false;
+  bool debugMode = true;
 
 
   @override

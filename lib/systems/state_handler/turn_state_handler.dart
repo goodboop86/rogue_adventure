@@ -5,20 +5,20 @@ import 'package:rogue_adventure/systems/state_handler/character_storage.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 
 class TurnStateHandler {
-  final Logger _log = Logger('TurnStateHandler');
+  final Logger logging = Logger('TurnStateHandler');
   final CharacterOperatorHandler _operatorHandler = CharacterOperatorHandler();
   late CharacterStorage characters;
   TurnStateType _currentTurnState = TurnStateType.keyInput;
   KeyInputType _currentKeyInput = KeyInputType.none;
 
   set currentKeyInput(KeyInputType input) {
-    _log.info("Setting current key input: ${input.name}");
+    logging.info("Setting current key input: ${input.name}");
     _currentKeyInput = input;
 
   }
 
   void updateTurnState(TurnStateType state) {
-    _log.info("Updating turn state: ${state.name}");
+    logging.info("Updating turn state: ${state.name}");
     _currentTurnState = state;
 
     switch (_currentTurnState) {
@@ -33,7 +33,7 @@ class TurnStateHandler {
   }
 
   void startPlayerTurn() {
-    _log.info("Starting player turn");
+    logging.info("Starting player turn");
     // NOTE: Playerは一人だけなので厳密にはループは不要
     for (var player in characters.players) {
       _operatorHandler.operatePlayer(player, _currentKeyInput);

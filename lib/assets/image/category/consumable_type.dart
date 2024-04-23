@@ -10,7 +10,7 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
   }),
   food2(
       401, SpriteSubCategoryType.foodConsumable, "consumable/food/food2.png", {
@@ -21,7 +21,7 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
   }),
   food3(
       402, SpriteSubCategoryType.foodConsumable, "consumable/food/food3.png", {
@@ -32,7 +32,7 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
   }),
   scroll0(450, SpriteSubCategoryType.scrollConsumable,
       "consumable/scroll/scroll1.png", {
@@ -43,7 +43,7 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
   }),
   scroll1(451, SpriteSubCategoryType.scrollConsumable,
       "consumable/scroll/scroll2.png", {
@@ -54,7 +54,7 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
   }),
   scroll2(452, SpriteSubCategoryType.scrollConsumable,
       "consumable/scroll/scroll3.png", {
@@ -65,7 +65,7 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
   }),
   weed0(500, SpriteSubCategoryType.weedConsumable,
       "consumable/weed/weed1.png", {
@@ -76,7 +76,7 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
   }),
   weed1(501, SpriteSubCategoryType.weedConsumable,
       "consumable/weed/weed2.png", {
@@ -87,7 +87,7 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
   }),
   weed2(502, SpriteSubCategoryType.weedConsumable,
       "consumable/weed/weed3.png", {
@@ -98,7 +98,7 @@ enum ConsumableType {
     "how_ease": HowEaseType.easy,
     "theme": ThemeType.basic
   }, {
-    "sprite_size": [32.0, 32.0],
+    "sprite_size": [64.0, 64.0],
   });
 
   final int id;

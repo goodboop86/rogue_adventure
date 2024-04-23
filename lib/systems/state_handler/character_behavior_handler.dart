@@ -3,13 +3,14 @@ import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/characters/player.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/systems/strategy/character_move_operation_strategy.dart';
+import 'package:rogue_adventure/systems/strategy/charactor_operation_strategy.dart';
 
 
 class CharacterOperatorHandler {
-  final Logger _log = Logger('CharacterOperatorHandler');
+  final Logger logging = Logger('CharacterOperatorHandler');
 
   void operatePlayer(Player player, KeyInputType input){
-    _log.info("Operating player: ${player.name}");
+    logging.info("Operating player: ${player.name}");
 
     switch (input.keyType) {
       case KeyType.move:

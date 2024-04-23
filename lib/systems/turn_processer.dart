@@ -5,10 +5,10 @@ import 'package:rogue_adventure/systems/state_handler/character_storage.dart';
 import 'package:rogue_adventure/systems/state_handler/turn_state_handler.dart';
 
 class TurnProcessor  {
-  final Logger _log = Logger('TurnProcessor');
+  final Logger logging = Logger('TurnProcessor');
   late TurnStateHandler handler;
   void process(KeyInputType input){
-    _log.info("Processing input: ${input.name}");
+    logging.info("Processing input: ${input.name}");
 
     handler.currentKeyInput = input;
     handler.updateTurnState(TurnStateType.playerTurn);
