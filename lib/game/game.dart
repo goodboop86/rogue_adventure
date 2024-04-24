@@ -1,5 +1,6 @@
 
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:logging/logging.dart';
@@ -29,7 +30,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   CharacterStorage characters = CharacterStorage();
 
   @override
-  bool debugMode = true;
+  //bool debugMode = true;
 
 
   @override
@@ -46,6 +47,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   Future<void> onLoad() async {
     SpriteAssets assets = SpriteAssets();
     var entities = await assets.loadAssets();
+
 
     spriteEntities = entities;
 
@@ -110,7 +112,30 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   createUI() async {
+    double gameWidth = game.size.x;
+    double gameHeight = game.size.y;
+
+    // directional buttons
+    int ratioOfGameSize = 16;
+    List<List<int>> positions = [[0,2],[1,2],[2,2],[0,1],[1,1],[2,1],[0,0],[1,0],[2,0]];
     buttons = await HudDirectionButton().getHudDirectionButtons(player);
+    for (var button in buttons) {
+      int id = buttons.indexOf(button);
+      int posX = positions[id][0];
+      int posY = positions[id][1];
+      button
+        ..button?.size = Vector2.all(gameWidth/ratioOfGameSize)
+        ..buttonDown?.size = Vector2.all(gameWidth/ratioOfGameSize)
+        ..position = Vector2(
+            posX * gameWidth/ratioOfGameSize + 2*gameWidth/ratioOfGameSize , gameHeight - (posY * gameWidth/ratioOfGameSize + gameWidth/14))
+        ..anchor = Anchor.center;
+      logging.info("button size: ${button.size}");
+    }
+
+    // create player status
+
+
+
     camera.viewport.addAll(buttons);
   }
 

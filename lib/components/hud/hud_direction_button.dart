@@ -65,10 +65,8 @@ class HudDirectionButton  {
     final hudDirectionDownButtonsSpriteSheet =
     SpriteSheet(image: downButtons, srcSize: Vector2.all(imgSize));
 
-    List<List<double>> positions = [[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]];
     List<KeyInputType> directions = KeyInputType.directionKeys;
     for (var direction in directions) {
-      List<double> position = positions[direction.index];
       _hudButtonComponentList.add(
         HudButtonComponent(
           button: SpriteComponent(
@@ -81,9 +79,6 @@ class HudDirectionButton  {
             sprite: hudDirectionDownButtonsSpriteSheet
                 .getSpriteById(direction.index),
           ),
-          position:
-          Vector2(
-              position[0] * imgSize * ratio, position[1] * imgSize * ratio),
         ),
       );
     }
