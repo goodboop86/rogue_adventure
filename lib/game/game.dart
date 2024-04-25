@@ -1,8 +1,10 @@
-
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flame/palette.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/blocks/wall.dart';
@@ -19,7 +21,7 @@ import '../components/hud/hud_direction_button.dart';
 import '../components/characters/player.dart';
 import '../systems/config.dart';
 
-class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
+class MainGame extends FlameGame with KeyboardEvents, HasGameRef, HasDecorator {
   final Logger logging = Logger('MainGame');
   late Player player;
   late Enemy enemy;
@@ -32,7 +34,6 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   @override
   //bool debugMode = true;
 
-
   @override
   void onGameResize(Vector2 size) {
     //oneBlockSize = canvasSize.x / 16;
@@ -43,11 +44,14 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     return spriteEntities.firstWhere((e) => e.id == id);
   }
 
+  // SpriteEntity getSpriteEntityFromName({required String name}) {
+  //   return spriteEntities.firstWhere((e) => e.name == name);
+  // }
+
   @override
   Future<void> onLoad() async {
     SpriteAssets assets = SpriteAssets();
     var entities = await assets.loadAssets();
-
 
     spriteEntities = entities;
 
@@ -81,27 +85,26 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     world.add(floorComponent);
   }
 
-
-
   createCharacter() {
     Vector2 playerPos = Vector2(6, 4);
     player =
         Character.initialize(entity: getSpriteEntityFromID(id: 200)) as Player;
     player
-      ..position = Vector2(playerPos.x * oneBlockSize, playerPos.y * oneBlockSize)
+      ..position =
+          Vector2(playerPos.x * oneBlockSize, playerPos.y * oneBlockSize)
       ..anchor = Anchor.center
       ..coordinate = playerPos;
 
     Vector2 enemyPos = Vector2(8, 6);
     enemy =
-    Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
+        Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
     enemy
       ..position = Vector2(enemyPos.x * oneBlockSize, enemyPos.y * oneBlockSize)
       ..anchor = Anchor.center
       ..coordinate = enemyPos;
 
     enemy2 =
-    Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
+        Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
     enemy2
       ..position = Vector2(enemyPos.x * oneBlockSize, enemyPos.y * oneBlockSize)
       ..anchor = Anchor.center
@@ -114,43 +117,88 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   createUI() async {
     double gameWidth = game.size.x;
     double gameHeight = game.size.y;
+    int ratioOfGameSize = 16;
+    double section = gameWidth / ratioOfGameSize;
 
     // directional buttons
-    int ratioOfGameSize = 16;
-    List<List<int>> positions = [[0,2],[1,2],[2,2],[0,1],[1,1],[2,1],[0,0],[1,0],[2,0]];
+    List<List<int>> positions = [
+      [0, 2],
+      [1, 2],
+      [2, 2],
+      [0, 1],
+      [1, 1],
+      [2, 1],
+      [0, 0],
+      [1, 0],
+      [2, 0]
+    ];
     buttons = await HudDirectionButton().getHudDirectionButtons(player);
     for (var button in buttons) {
       int id = buttons.indexOf(button);
       int posX = positions[id][0];
       int posY = positions[id][1];
       button
-        ..button?.size = Vector2.all(gameWidth/ratioOfGameSize)
-        ..buttonDown?.size = Vector2.all(gameWidth/ratioOfGameSize)
-        ..position = Vector2(
-            posX * gameWidth/ratioOfGameSize + 2*gameWidth/ratioOfGameSize , gameHeight - (posY * gameWidth/ratioOfGameSize + gameWidth/14))
+        ..button?.size = Vector2.all(section)
+        ..buttonDown?.size = Vector2.all(section)
+        ..position = Vector2(posX * section + 2 * section,
+            gameHeight - (posY * section + section))
         ..anchor = Anchor.center;
       logging.info("button size: ${button.size}");
     }
 
     // create player status
+    SpriteComponent heart = getSpriteEntityFromID(id: 900).getSpriteComponent();
+    heart
+      ..position = Vector2(section, section / 2)
+      ..size = Vector2.all(section / 2)
+      ..anchor = Anchor.center;
 
+    TextComponent heartText = TextComponent();
+    heartText
+      ..position = Vector2(section * 1.5, section / 2)
+      ..size = Vector2.all(section / 2)
+      ..anchor = Anchor.center
+      ..text = 10.toString()
+      ..textRenderer = TextPaint(
+        style: TextStyle(
+          fontSize: 20.0,
+          color: BasicPalette.white.color,
+        ),
+      );
 
+    SpriteComponent sword = getSpriteEntityFromID(id: 900).getSpriteComponent();
+    sword
+      ..position = Vector2(section * 2, section / 2)
+      ..size = Vector2.all(section / 2)
+      ..anchor = Anchor.center;
 
+    TextComponent swordText = TextComponent();
+    swordText
+      ..position = Vector2(section * 2.5, section / 2)
+      ..size = Vector2.all(section / 2)
+      ..anchor = Anchor.center
+      ..text = player.gameParam['life'].toString()
+      ..textRenderer = TextPaint(
+        style: TextStyle(
+          fontSize: 20.0,
+          color: BasicPalette.white.color,
+        ),
+      );
+
+    camera.viewport.addAll([heart, heartText, sword, swordText]);
     camera.viewport.addAll(buttons);
   }
 
   @override
   void onMount() {
-
     TurnProcessor turnProcessor = TurnProcessor(characters: characters);
     for (var direction in KeyInputType.directionKeys) {
       int id = direction.index;
       HudButtonComponent button = buttons[id];
-      button
-        .onPressed = () {
-          //player.moveTo(direction);
-          turnProcessor.process(direction);
-        };
+      button.onPressed = () {
+        //player.moveTo(direction);
+        turnProcessor.process(direction);
+      };
     }
     //camera.follow(player);
     super.onMount();
@@ -164,4 +212,13 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
   MainGame({required super.camera});
+}
+
+class ShadowComponent extends PositionComponent {
+  ShadowComponent({
+    required super.children,
+    required super.size,
+    required super.position,
+    required super.anchor,
+  });
 }
