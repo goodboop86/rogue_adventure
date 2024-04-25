@@ -15,10 +15,27 @@ class MainGamePageState extends State<MainGamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GameWidget(
+        overlayBuilderMap: const {
+          'PauseMenu': _pauseMenuBuilder,
+        },
+          initialActiveOverlays: const ['PauseMenu'],
         game: MainGame(
             camera:
                 CameraComponent(viewport: MaxViewport())),
       ),
     );
   }
+}
+
+Widget _pauseMenuBuilder(BuildContext buildContext, MainGame game) {
+  return Center(
+    child: Container(
+      width: 100,
+      height: 100,
+      color: Colors.orange,
+      child: const Center(
+        child: Text('Paused'),
+      ),
+    ),
+  );
 }

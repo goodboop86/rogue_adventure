@@ -1,3 +1,4 @@
+import 'package:dashbook/dashbook.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
@@ -22,7 +23,7 @@ import '../components/hud/hud_direction_button.dart';
 import '../components/characters/player.dart';
 import '../systems/config.dart';
 
-class MainGame extends FlameGame with KeyboardEvents, HasGameRef, HasDecorator {
+class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   final Logger logging = Logger('MainGame');
   late Player player;
   late Enemy enemy;
@@ -156,7 +157,17 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef, HasDecorator {
       ..position = Vector2(game.size.x - section * 2, game.size.y - section * 2)
       ..size = Vector2.all(section)
       ..onPressed = () {
-      print('Pressed');
+      logging.info('${overlays.isActive('PauseMenu')}');
+      if (overlays.isActive('PauseMenu')) {
+        logging.info('removing pause menu');
+        overlays.remove('PauseMenu');
+        resumeEngine();
+      } else {
+        logging.info('adding pause menu');
+        overlays.add('PauseMenu');
+        pauseEngine();
+      }
+        // overlays.isActive('Inventory') ?
     };
 
       // create player status
@@ -225,14 +236,9 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef, HasDecorator {
     //print(camera.viewport.size);
   }
 
+
   MainGame({required super.camera});
 }
 
-class ShadowComponent extends PositionComponent {
-  ShadowComponent({
-    required super.children,
-    required super.size,
-    required super.position,
-    required super.anchor,
-  });
-}
+
+
