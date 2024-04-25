@@ -10,6 +10,7 @@ import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/blocks/wall.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
+import 'package:rogue_adventure/components/characters/npc.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/models/entity/field.dart';
@@ -25,7 +26,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef, HasDecorator {
   final Logger logging = Logger('MainGame');
   late Player player;
   late Enemy enemy;
-  late Enemy enemy2;
+  late NPC npc;
   late Sprite playerSprite;
   late List<SpriteEntity> spriteEntities;
   List<HudButtonComponent> buttons = [];
@@ -103,15 +104,16 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef, HasDecorator {
       ..anchor = Anchor.center
       ..coordinate = enemyPos;
 
-    enemy2 =
-        Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
-    enemy2
-      ..position = Vector2(enemyPos.x * oneBlockSize, enemyPos.y * oneBlockSize)
+    Vector2 npcPos = Vector2(4, 4);
+    npc =
+        Character.initialize(entity: getSpriteEntityFromID(id: 300)) as NPC;
+    npc
+      ..position = Vector2(npcPos.x * oneBlockSize, npcPos.y * oneBlockSize)
       ..anchor = Anchor.center
-      ..coordinate = enemyPos;
+      ..coordinate = npcPos;
 
-    world.addAll([player, enemy, enemy2]);
-    characters.registerAll([player, enemy, enemy2]);
+    world.addAll([player, enemy, npc]);
+    characters.registerAll([player, enemy, npc]);
   }
 
   createUI() async {

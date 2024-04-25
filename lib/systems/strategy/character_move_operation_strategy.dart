@@ -4,6 +4,7 @@ import 'package:rogue_adventure/components/blocks/blocks.dart';
 import 'package:rogue_adventure/components/blocks/floor.dart';
 import 'package:rogue_adventure/components/blocks/wall.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
+import 'package:rogue_adventure/components/characters/npc.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
 import 'package:rogue_adventure/enums/component/sprite_direction.dart';
 import 'package:rogue_adventure/systems/config.dart';
@@ -41,6 +42,13 @@ class CharacterMoveOperationStrategy extends CharacterOperationStrategy {
     List<Enemy> enemies = character.game.world.children.query<Enemy>();
     for (var enemy in enemies) {
       if (enemy.coordinate == point) {
+        isMovable = false;
+      }
+    }
+
+    List<NPC> npcs = character.game.world.children.query<NPC>();
+    for (var npc in npcs) {
+      if (npc.coordinate == point) {
         isMovable = false;
       }
     }
