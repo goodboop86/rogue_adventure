@@ -2,7 +2,7 @@ import 'package:rogue_adventure/assets/image/common_type.dart';
 import 'package:rogue_adventure/systems/config.dart';
 
 enum UIType {
-  button0(800, SpriteSubCategoryType.buttonUI, "ui/button/button1.png", {
+  inventoryButton(800, SpriteSubCategoryType.buttonUI, "ui/button/inventory_button.png", {
     "sprite_size": [64.0, 64.0],
     "src_size": [64.0, 64.0]
   }, {}),

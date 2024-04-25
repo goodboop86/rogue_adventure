@@ -146,7 +146,18 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef, HasDecorator {
       logging.info("button size: ${button.size}");
     }
 
-    // create player status
+    Sprite inventoryButtonSprite = getSpriteEntityFromID(id: 800).sprite;
+    SpriteButtonComponent inventoryButton = SpriteButtonComponent(
+      button: inventoryButtonSprite,
+      buttonDown: inventoryButtonSprite,
+    )
+      ..position = Vector2(game.size.x - section * 2, game.size.y - section * 2)
+      ..size = Vector2.all(section)
+      ..onPressed = () {
+      print('Pressed');
+    };
+
+      // create player status
     SpriteComponent heart = getSpriteEntityFromID(id: 900).getSpriteComponent();
     heart
       ..position = Vector2(section, section / 2)
@@ -185,7 +196,8 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef, HasDecorator {
         ),
       );
 
-    camera.viewport.addAll([heart, heartText, sword, swordText]);
+
+    camera.viewport.addAll([heart, heartText, sword, swordText, inventoryButton]);
     camera.viewport.addAll(buttons);
   }
 
