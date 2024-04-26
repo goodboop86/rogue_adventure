@@ -1,5 +1,0 @@
-
-enum SpriteFacing {
-  right,
-  left;
-}

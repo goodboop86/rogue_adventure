@@ -1,4 +1,3 @@
-import 'package:dashbook/dashbook.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
@@ -8,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:rogue_adventure/assets/image/loader.dart';
-import 'package:rogue_adventure/components/blocks/wall.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/characters/npc.dart';

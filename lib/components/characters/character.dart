@@ -4,7 +4,6 @@ import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/characters/npc.dart';
 import 'package:rogue_adventure/components/characters/player.dart';
-import 'package:rogue_adventure/enums/component/sprite_direction.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/game/game.dart';
 import 'package:flame/palette.dart';
@@ -75,4 +74,9 @@ abstract class Character extends SpriteComponent
         throw Exception();
     }
   }
+}
+
+enum SpriteFacing {
+  right,
+  left;
 }
