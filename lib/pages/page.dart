@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
 
-abstract class Pages extends Component {
+abstract class Page extends Component {
 
 }

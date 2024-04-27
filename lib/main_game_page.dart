@@ -1,7 +1,10 @@
 import 'package:flame/camera.dart';
+import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart';
-import 'package:rogue_adventure/pages/game.dart';
+import 'package:flutter/material.dart' hide Route; // flutterとflameのRouteが衝突するため
+import 'package:rogue_adventure/pages/dungeon_page.dart';
+import 'package:rogue_adventure/pages/start_page.dart';
 
 class MainGamePage extends StatefulWidget {
   const MainGamePage({super.key});
@@ -34,4 +37,23 @@ Widget _pauseMenuBuilder(BuildContext buildContext, DungeonPage game) {
       ),
     ),
   );
+}
+
+
+class GameRouter extends FlameGame with KeyboardEvents, HasGameRef {
+  late final RouterComponent router;
+
+  @override
+  void onLoad() {
+    add(
+      router = RouterComponent(
+        routes: {
+          'home': Route(DungeonPage.new),
+          'start': Route(StartPage.new),
+        },
+        initialRoute: 'start',
+      ),
+    );
+  }
+  GameRouter({required super.camera});
 }
