@@ -1,7 +1,7 @@
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:rogue_adventure/game/game.dart';
+import 'package:rogue_adventure/pages/game.dart';
 
 class MainGamePage extends StatefulWidget {
   const MainGamePage({super.key});
@@ -15,11 +15,7 @@ class MainGamePageState extends State<MainGamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GameWidget(
-        overlayBuilderMap: const {
-          'PauseMenu': _pauseMenuBuilder,
-        },
-          initialActiveOverlays: const ['PauseMenu'],
-        game: MainGame(
+        game: GameRouter(
             camera:
                 CameraComponent(viewport: MaxViewport())),
       ),
@@ -27,7 +23,7 @@ class MainGamePageState extends State<MainGamePage> {
   }
 }
 
-Widget _pauseMenuBuilder(BuildContext buildContext, MainGame game) {
+Widget _pauseMenuBuilder(BuildContext buildContext, DungeonPage game) {
   return Center(
     child: Container(
       width: 100,

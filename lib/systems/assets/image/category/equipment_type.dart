@@ -1,4 +1,4 @@
-import 'package:rogue_adventure/assets/image/common_type.dart';
+import 'package:rogue_adventure/systems/assets/image/common_type.dart';
 
 enum EquipmentType {
   accessory0(600, SpriteSubCategoryType.accessoryEquipment,

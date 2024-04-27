@@ -1,4 +1,4 @@
-import 'package:rogue_adventure/assets/image/common_type.dart';
+import 'package:rogue_adventure/systems/assets/image/common_type.dart';
 
 enum CharacterType {
   player0(200, SpriteSubCategoryType.playerCharacter,
