@@ -1,10 +1,7 @@
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
@@ -21,7 +18,27 @@ import '../components/hud/hud_direction_button.dart';
 import '../components/characters/player.dart';
 import '../systems/config.dart';
 
-class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
+import 'package:flame/events.dart';
+import 'package:flutter/rendering.dart';
+
+class GameRouter extends FlameGame with KeyboardEvents, HasGameRef {
+  late final RouterComponent router;
+
+  @override
+  void onLoad() {
+    add(
+      router = RouterComponent(
+        routes: {
+          'home': Route(MainGame.new),
+        },
+        initialRoute: 'home',
+      ),
+    );
+  }
+  GameRouter({required super.camera});
+}
+
+class MainGame extends Component with HasGameRef<GameRouter> {
   final Logger logging = Logger('MainGame');
   late Player player;
   late Enemy enemy;
@@ -63,7 +80,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
 
     await createUI();
 
-    camera.follow(player);
+    game.camera.follow(player);
   }
 
   createBlock() async {
@@ -82,7 +99,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
         floorComponent.add(component);
       }
     }
-    world.add(floorComponent);
+    game.world.add(floorComponent);
   }
 
   createCharacter() {
@@ -111,7 +128,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       ..anchor = Anchor.center
       ..coordinate = npcPos;
 
-    world.addAll([player, enemy, npc]);
+    game.world.addAll([player, enemy, npc]);
     characters.registerAll([player, enemy, npc]);
   }
 
@@ -155,16 +172,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       ..position = Vector2(game.size.x - section * 2, game.size.y - section * 2)
       ..size = Vector2.all(section)
       ..onPressed = () {
-      logging.info('${overlays.isActive('PauseMenu')}');
-      if (overlays.isActive('PauseMenu')) {
-        logging.info('removing pause menu');
-        overlays.remove('PauseMenu');
-        resumeEngine();
-      } else {
-        logging.info('adding pause menu');
-        overlays.add('PauseMenu');
-        pauseEngine();
-      }
+
         // overlays.isActive('Inventory') ?
     };
 
@@ -208,8 +216,8 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       );
 
 
-    camera.viewport.addAll([heart, heartText, sword, swordText, inventoryButton]);
-    camera.viewport.addAll(buttons);
+    game.camera.viewport.addAll([heart, heartText, sword, swordText, inventoryButton]);
+    game.camera.viewport.addAll(buttons);
   }
 
   @override
@@ -235,7 +243,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
   }
 
 
-  MainGame({required super.camera});
+  MainGame();
 }
 
 

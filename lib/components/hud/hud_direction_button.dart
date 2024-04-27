@@ -19,7 +19,7 @@ class HudDirectionButton  {
 
 
   // @override
-  // create({required HasGameRef<MainGame> game}){
+  // create({required HasGameRef<GameRouter> game}){
   //   final hudDirectionButtonsSpriteSheet =
   //   SpriteSheet(image: buttons, srcSize: Vector2.all(imgSize));
   //   final hudDirectionDownButtonsSpriteSheet =

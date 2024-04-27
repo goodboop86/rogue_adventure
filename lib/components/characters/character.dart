@@ -10,7 +10,7 @@ import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
 
 abstract class Character extends SpriteComponent
-    with HasGameReference<MainGame> {
+    with HasGameReference<GameRouter> {
   final isWalkable = false;
   late TextComponent text;
   late Vector2 coordinate;
