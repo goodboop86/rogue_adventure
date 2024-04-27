@@ -6,7 +6,7 @@ enum UIType {
     "sprite_size": [64.0, 64.0],
     "src_size": [64.0, 64.0]
   }, {}),
-  button1(801, SpriteSubCategoryType.buttonUI, "ui/button/button2.png", {
+  button1(801, SpriteSubCategoryType.buttonUI, "ui/button/return_button.png", {
     "sprite_size": [64.0, 64.0],
     "src_size": [64.0, 64.0]
   }, {}),

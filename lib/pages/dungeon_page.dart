@@ -156,8 +156,22 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
       ..size = Vector2.all(section)
       ..onPressed = () {
 
-        // overlays.isActive('Inventory') ?
     };
+
+    Sprite returnButtonSprite = assets.getSpriteEntityFromID(id: 801).sprite;
+    SpriteButtonComponent returnButton = SpriteButtonComponent(
+      button: returnButtonSprite,
+      buttonDown: returnButtonSprite,
+    )
+      ..position = Vector2(game.size.x - section * 4, game.size.y - section * 2)
+      ..size = Vector2.all(section)
+      ..onPressed = () {
+      logging.info("return button pressed");
+      //gameRef.router.pop();
+
+        //game.router.pushNamed('start');
+        game.router.pushReplacementNamed('start');
+      };
 
       // create player status
     SpriteComponent heart = assets.getSpriteEntityFromID(id: 900).getSpriteComponent();
@@ -199,7 +213,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
       );
 
 
-    game.camera.viewport.addAll([heart, heartText, sword, swordText, inventoryButton]);
+    game.camera.viewport.addAll([heart, heartText, sword, swordText, inventoryButton, returnButton]);
     game.camera.viewport.addAll(buttons);
   }
 

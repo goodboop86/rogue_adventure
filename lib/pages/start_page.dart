@@ -29,7 +29,7 @@ class StartPage extends Page with HasGameRef<GameRouter> {
       button: inventoryButtonSprite,
       buttonDown: inventoryButtonSprite,
     )
-      ..position = Vector2(game.size.x - section * 2, game.size.y - section * 2)
+      ..position = Vector2(game.size.x/2 - section/2, game.size.y/2 - section/2)
       ..size = Vector2.all(section)
       ..onPressed = () {game.router.pushNamed('dungeon');};
     add(inventoryButton);

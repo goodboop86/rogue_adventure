@@ -49,7 +49,7 @@ class GameRouter extends FlameGame with KeyboardEvents, HasGameRef {
     add(
       router = RouterComponent(
         routes: {
-          'dungeon': Route(DungeonPage.new),
+          'dungeon': Route(DungeonPage.new, maintainState: false),
           'start': Route(StartPage.new),
           'inventory': Route(InventoryPage.new),
         },
