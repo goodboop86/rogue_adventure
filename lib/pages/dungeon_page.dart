@@ -24,6 +24,7 @@ import 'package:flutter/rendering.dart';
 
 
 class DungeonPage extends Page with HasGameRef<GameRouter> {
+  late WorldManager worldManager;
   late Player player;
   late Enemy enemy;
   late NPC npc;
@@ -35,6 +36,8 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
 
   @override
   Future<void> onLoad() async {
+    game.world = worldManager.getWorldFromName(name: 'dungeon');
+
     await assets.loadAssets();
 
     await construct();
@@ -170,6 +173,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
       //gameRef.router.pop();
 
         //game.router.pushNamed('start');
+      game.world = worldManager.getWorldFromName(name: 'start');
         game.router.pushReplacementNamed('start');
       };
 
@@ -219,5 +223,6 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
 
 
 
-  DungeonPage();
+  DungeonPage({required this.worldManager}){
+  }
 }

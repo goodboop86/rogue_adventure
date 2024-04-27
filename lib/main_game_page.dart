@@ -43,14 +43,15 @@ Widget _pauseMenuBuilder(BuildContext buildContext, DungeonPage game) {
 
 class GameRouter extends FlameGame with KeyboardEvents, HasGameRef {
   late final RouterComponent router;
+  WorldManager worldManager = WorldManager();
 
   @override
   void onLoad() {
     add(
       router = RouterComponent(
         routes: {
-          'dungeon': Route(DungeonPage.new, maintainState: false),
-          'start': Route(StartPage.new),
+          'dungeon': Route(() => DungeonPage(worldManager: worldManager)),
+          'start': Route(() => StartPage(worldManager: worldManager)),
           'inventory': Route(InventoryPage.new),
         },
         initialRoute: 'start',
@@ -58,4 +59,16 @@ class GameRouter extends FlameGame with KeyboardEvents, HasGameRef {
     );
   }
   GameRouter({required super.camera});
+}
+
+class WorldManager {
+  final Map<String, World> worlds = {
+    'dungeon': World(),
+    'start': World(),
+  };
+  
+  World getWorldFromName({required String name}) {
+    return worlds[name]!;
+  }
+  WorldManager();
 }

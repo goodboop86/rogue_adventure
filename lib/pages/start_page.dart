@@ -4,8 +4,11 @@ import 'package:rogue_adventure/main_game_page.dart';
 import 'package:rogue_adventure/pages/page.dart';
 
 class StartPage extends Page with HasGameRef<GameRouter> {
+  late WorldManager worldManager;
   @override
   Future<void> onLoad() async {
+    game.world = worldManager.getWorldFromName(name: 'start');
+
     await assets.loadAssets();
     super.onLoad();
 
@@ -31,9 +34,12 @@ class StartPage extends Page with HasGameRef<GameRouter> {
     )
       ..position = Vector2(game.size.x/2 - section/2, game.size.y/2 - section/2)
       ..size = Vector2.all(section)
-      ..onPressed = () {game.router.pushNamed('dungeon');};
+      ..onPressed = () {
+        game.world = worldManager.getWorldFromName(name: 'dungeon');
+      game.router.pushNamed('dungeon');};
     add(inventoryButton);
   }
 
-  StartPage();
+  StartPage({required this.worldManager}){
+  }
 }
