@@ -8,11 +8,13 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flame: 1.16.0
+  flame: ^1.17.0
   dart_console: ^1.1.0
   logging: ^1.2.0
   http: ^1.2.1
   collection: ^1.18.0
+  flutter_riverpod: ^2.5.1
+  flame_riverpod: ^5.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

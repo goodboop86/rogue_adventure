@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:logging/logging.dart';
+// ignore: unused_import
 import 'package:rogue_adventure/algorithms/bsp/extention/list2d_extention.dart';
 
 class Point {
@@ -30,6 +32,7 @@ class Point {
 }
 
 class Area {
+  final Logger logging = Logger('Area');
   late Point from;
   late Point to;
 
@@ -90,18 +93,18 @@ class Area {
 
   void modify() {
     if (from.x > to.x) {
-      print("before: ${toString()}");
+      logging.info("before: ${toString()}");
       int tmp = from.x;
       from.x = to.x;
       to.x = tmp;
-      print("after: ${toString()}");
+      logging.info("after: ${toString()}");
     }
     if (from.y > to.y) {
-      print("before: ${toString()}");
+      logging.info("before: ${toString()}");
       int tmp = from.y;
       from.y = to.y;
       to.y = tmp;
-      print("after: ${toString()}");
+      logging.info("after: ${toString()}");
     }
   }
 

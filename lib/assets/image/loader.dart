@@ -24,6 +24,14 @@ class SpriteEntity {
     required this.assetParam,
     required this.gameParam,
   });
+
+  getSpriteComponent() {
+    return SpriteComponent(
+      sprite: sprite,
+      size: Vector2(assetParam['sprite_size'][0], assetParam['sprite_size'][1]),
+    );
+  }
+
 }
 
 class SpriteAssets {

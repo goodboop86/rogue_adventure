@@ -1,6 +1,6 @@
 enum WeaponAbilityType {
   dragonKiller(WeaponAbilityCategory.killer),
-  GrimReaperKiller(WeaponAbilityCategory.killer),
+  grimReaperKiller(WeaponAbilityCategory.killer),
   lifeSteal(WeaponAbilityCategory.special),
   energySteal(WeaponAbilityCategory.special),
   threeProngedAttack(WeaponAbilityCategory.special),// 透視

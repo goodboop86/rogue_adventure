@@ -1,11 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 
-import '../systems/config.dart';
 import 'blocks/blocks.dart';
 
 class FloorComponent extends Component {
-  List<Vector2>? glowAroundComponentFromCoordinate(Vector2 target) {
+  void glowAroundComponentFromCoordinate(Vector2 target) {
     for (var child in children) {
       final block = child as Blocks;
       if ((target.x - block.coordinate.x).abs() <= 1 &&

@@ -1,51 +1,52 @@
-import 'dart:convert';
-import 'dart:ui';
-
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
-import 'package:flame/sprite.dart';
-import 'package:rogue_adventure/assets/image/category/character_type.dart';
-import 'package:rogue_adventure/assets/image/category/consumable_type.dart';
-import 'package:rogue_adventure/assets/image/category/equipment_type.dart';
-import 'package:rogue_adventure/assets/image/category/ui_type.dart';
-import 'package:rogue_adventure/assets/image/common_type.dart';
+import 'package:flame/palette.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:rogue_adventure/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
+import 'package:rogue_adventure/components/characters/npc.dart';
 import 'package:rogue_adventure/components/floor_component.dart';
-import 'package:rogue_adventure/enums/ui/key_direction.dart';
+import 'package:rogue_adventure/systems/key_input_type.dart';
 import 'package:rogue_adventure/models/entity/field.dart';
-import 'package:rogue_adventure/enums/component/block_type.dart';
+import 'package:rogue_adventure/systems/state_handler/character_storage.dart';
+import 'package:rogue_adventure/systems/turn_processer.dart';
 
 import '../components/blocks/blocks.dart';
 import '../components/hud/hud_direction_button.dart';
 import '../components/characters/player.dart';
 import '../systems/config.dart';
-import '../enums/ui/hud_type.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
+  final Logger logging = Logger('MainGame');
   late Player player;
   late Enemy enemy;
+  late NPC npc;
   late Sprite playerSprite;
   late List<SpriteEntity> spriteEntities;
   List<HudButtonComponent> buttons = [];
+  CharacterStorage characters = CharacterStorage();
 
   @override
-  bool debugMode = false;
-
+  //bool debugMode = true;
 
   @override
-  void onGameResize(Vector2 canvasSize) {
+  void onGameResize(Vector2 size) {
     //oneBlockSize = canvasSize.x / 16;
-    super.onGameResize(canvasSize);
+    super.onGameResize(size);
   }
 
   SpriteEntity getSpriteEntityFromID({required int id}) {
     return spriteEntities.firstWhere((e) => e.id == id);
   }
+
+  // SpriteEntity getSpriteEntityFromName({required String name}) {
+  //   return spriteEntities.firstWhere((e) => e.name == name);
+  // }
 
   @override
   Future<void> onLoad() async {
@@ -84,42 +85,143 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     world.add(floorComponent);
   }
 
-
-
   createCharacter() {
     Vector2 playerPos = Vector2(6, 4);
     player =
         Character.initialize(entity: getSpriteEntityFromID(id: 200)) as Player;
     player
-      ..position = Vector2(playerPos.x * oneBlockSize, playerPos.y * oneBlockSize)
+      ..position =
+          Vector2(playerPos.x * oneBlockSize, playerPos.y * oneBlockSize)
       ..anchor = Anchor.center
       ..coordinate = playerPos;
 
-    Vector2 enemyPos = Vector2(8, 4);
+    Vector2 enemyPos = Vector2(8, 6);
     enemy =
-    Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
+        Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
     enemy
       ..position = Vector2(enemyPos.x * oneBlockSize, enemyPos.y * oneBlockSize)
       ..anchor = Anchor.center
       ..coordinate = enemyPos;
 
-    world.addAll([player, enemy]);
+    Vector2 npcPos = Vector2(4, 4);
+    npc =
+        Character.initialize(entity: getSpriteEntityFromID(id: 300)) as NPC;
+    npc
+      ..position = Vector2(npcPos.x * oneBlockSize, npcPos.y * oneBlockSize)
+      ..anchor = Anchor.center
+      ..coordinate = npcPos;
+
+    world.addAll([player, enemy, npc]);
+    characters.registerAll([player, enemy, npc]);
   }
 
   createUI() async {
+    double gameWidth = game.size.x;
+    double gameHeight = game.size.y;
+    int ratioOfGameSize = 16;
+    double section = gameWidth / ratioOfGameSize;
+
+    // directional buttons
+    List<List<int>> positions = [
+      [0, 2],
+      [1, 2],
+      [2, 2],
+      [0, 1],
+      [1, 1],
+      [2, 1],
+      [0, 0],
+      [1, 0],
+      [2, 0]
+    ];
     buttons = await HudDirectionButton().getHudDirectionButtons(player);
+    for (var button in buttons) {
+      int id = buttons.indexOf(button);
+      int posX = positions[id][0];
+      int posY = positions[id][1];
+      button
+        ..button?.size = Vector2.all(section)
+        ..buttonDown?.size = Vector2.all(section)
+        ..position = Vector2(posX * section + 2 * section,
+            gameHeight - (posY * section + section))
+        ..anchor = Anchor.center;
+      logging.info("button size: ${button.size}");
+    }
+
+    Sprite inventoryButtonSprite = getSpriteEntityFromID(id: 800).sprite;
+    SpriteButtonComponent inventoryButton = SpriteButtonComponent(
+      button: inventoryButtonSprite,
+      buttonDown: inventoryButtonSprite,
+    )
+      ..position = Vector2(game.size.x - section * 2, game.size.y - section * 2)
+      ..size = Vector2.all(section)
+      ..onPressed = () {
+      logging.info('${overlays.isActive('PauseMenu')}');
+      if (overlays.isActive('PauseMenu')) {
+        logging.info('removing pause menu');
+        overlays.remove('PauseMenu');
+        resumeEngine();
+      } else {
+        logging.info('adding pause menu');
+        overlays.add('PauseMenu');
+        pauseEngine();
+      }
+        // overlays.isActive('Inventory') ?
+    };
+
+      // create player status
+    SpriteComponent heart = getSpriteEntityFromID(id: 900).getSpriteComponent();
+    heart
+      ..position = Vector2(section, section / 2)
+      ..size = Vector2.all(section / 2)
+      ..anchor = Anchor.center;
+
+    TextComponent heartText = TextComponent();
+    heartText
+      ..position = Vector2(section * 1.5, section / 2)
+      ..size = Vector2.all(section / 2)
+      ..anchor = Anchor.center
+      ..text = 10.toString()
+      ..textRenderer = TextPaint(
+        style: TextStyle(
+          fontSize: 20.0,
+          color: BasicPalette.white.color,
+        ),
+      );
+
+    SpriteComponent sword = getSpriteEntityFromID(id: 900).getSpriteComponent();
+    sword
+      ..position = Vector2(section * 2, section / 2)
+      ..size = Vector2.all(section / 2)
+      ..anchor = Anchor.center;
+
+    TextComponent swordText = TextComponent();
+    swordText
+      ..position = Vector2(section * 2.5, section / 2)
+      ..size = Vector2.all(section / 2)
+      ..anchor = Anchor.center
+      ..text = player.gameParam['life'].toString()
+      ..textRenderer = TextPaint(
+        style: TextStyle(
+          fontSize: 20.0,
+          color: BasicPalette.white.color,
+        ),
+      );
+
+
+    camera.viewport.addAll([heart, heartText, sword, swordText, inventoryButton]);
     camera.viewport.addAll(buttons);
   }
 
   @override
   void onMount() {
-    for (var direction in KeyDirection.values) {
+    TurnProcessor turnProcessor = TurnProcessor(characters: characters);
+    for (var direction in KeyInputType.directionKeys) {
       int id = direction.index;
       HudButtonComponent button = buttons[id];
-      button
-        .onPressed = () {
-          player.moveTo(direction);
-        };
+      button.onPressed = () {
+        //player.moveTo(direction);
+        turnProcessor.process(direction);
+      };
     }
     //camera.follow(player);
     super.onMount();
@@ -132,5 +234,9 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     //print(camera.viewport.size);
   }
 
-  MainGame({required camera}) : super(camera: camera);
+
+  MainGame({required super.camera});
 }
+
+
+

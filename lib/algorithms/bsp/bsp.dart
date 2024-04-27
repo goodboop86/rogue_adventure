@@ -7,7 +7,6 @@ import 'package:rogue_adventure/algorithms/bsp/extention/list2d_extention.dart';
 import 'package:rogue_adventure/algorithms/bsp/processor/material_processor.dart';
 import 'package:rogue_adventure/algorithms/bsp/processor/tree_processor.dart';
 import 'package:rogue_adventure/algorithms/bsp/strategy/strategy_material.dart';
-import 'package:rogue_adventure/algorithms/bsp/structure/partition.dart';
 
 class BSP {
   StrategyMaterial material;
@@ -24,6 +23,7 @@ class BSP {
 void main() {
   Logger.root.level = Level.ALL; // すべてのログを取得します。
   Logger.root.onRecord.listen((record) {
+    // ignore: avoid_print
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
 
