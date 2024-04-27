@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:logging/logging.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
-import 'package:rogue_adventure/game/game.dart';
+import 'package:rogue_adventure/pages/game.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
 
 abstract class CharacterOperationStrategy {

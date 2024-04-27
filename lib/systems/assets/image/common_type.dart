@@ -1,9 +1,9 @@
 // アイテムの希少度
-import 'package:rogue_adventure/assets/image/category/block_type.dart';
-import 'package:rogue_adventure/assets/image/category/character_type.dart';
-import 'package:rogue_adventure/assets/image/category/consumable_type.dart';
-import 'package:rogue_adventure/assets/image/category/equipment_type.dart';
-import 'package:rogue_adventure/assets/image/category/ui_type.dart';
+import 'package:rogue_adventure/systems/assets/image/category/block_type.dart';
+import 'package:rogue_adventure/systems/assets/image/category/character_type.dart';
+import 'package:rogue_adventure/systems/assets/image/category/consumable_type.dart';
+import 'package:rogue_adventure/systems/assets/image/category/equipment_type.dart';
+import 'package:rogue_adventure/systems/assets/image/category/ui_type.dart';
 
 
 enum RarityType { common, uncommon, rare, epic, legendary, mythic }

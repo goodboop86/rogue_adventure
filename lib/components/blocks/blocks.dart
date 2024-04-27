@@ -3,10 +3,10 @@
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
-import 'package:rogue_adventure/assets/image/loader.dart';
+import 'package:rogue_adventure/systems/assets/image/loader.dart';
 import 'package:rogue_adventure/components/blocks/floor.dart';
 import 'package:rogue_adventure/components/blocks/wall.dart';
-import 'package:rogue_adventure/assets/image/common_type.dart';
+import 'package:rogue_adventure/systems/assets/image/common_type.dart';
 
 
 abstract class Blocks extends SpriteComponent with HasGameRef {
