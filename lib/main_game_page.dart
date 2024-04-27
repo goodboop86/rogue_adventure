@@ -4,6 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart' hide Route; // flutterとflameのRouteが衝突するため
 import 'package:rogue_adventure/pages/dungeon_page.dart';
+import 'package:rogue_adventure/pages/inventory_page.dart';
 import 'package:rogue_adventure/pages/start_page.dart';
 
 class MainGamePage extends StatefulWidget {
@@ -48,8 +49,9 @@ class GameRouter extends FlameGame with KeyboardEvents, HasGameRef {
     add(
       router = RouterComponent(
         routes: {
-          'home': Route(DungeonPage.new),
+          'dungeon': Route(DungeonPage.new),
           'start': Route(StartPage.new),
+          'inventory': Route(InventoryPage.new),
         },
         initialRoute: 'start',
       ),

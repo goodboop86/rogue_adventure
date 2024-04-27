@@ -24,7 +24,6 @@ import 'package:flutter/rendering.dart';
 
 
 class DungeonPage extends Page with HasGameRef<GameRouter> {
-  final Logger logging = Logger('MainGame');
   late Player player;
   late Enemy enemy;
   late NPC npc;
@@ -32,40 +31,39 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
   late List<SpriteEntity> spriteEntities;
   List<HudButtonComponent> buttons = [];
   CharacterStorage characters = CharacterStorage();
-
-  @override
-  //bool debugMode = true;
-
-  @override
-  void onGameResize(Vector2 size) {
-    //oneBlockSize = canvasSize.x / 16;
-    super.onGameResize(size);
-  }
-
-  SpriteEntity getSpriteEntityFromID({required int id}) {
-    return spriteEntities.firstWhere((e) => e.id == id);
-  }
-
-  // SpriteEntity getSpriteEntityFromName({required String name}) {
-  //   return spriteEntities.firstWhere((e) => e.name == name);
-  // }
+  
 
   @override
   Future<void> onLoad() async {
-    SpriteAssets assets = SpriteAssets();
-    var entities = await assets.loadAssets();
+    await assets.loadAssets();
 
-    spriteEntities = entities;
+    await construct();
 
     super.onLoad();
-
-    await createBlock();
-
-    await createCharacter();
-
-    await createUI();
-
     game.camera.follow(player);
+  }
+
+  @override
+  void onMount() {
+    TurnProcessor turnProcessor = TurnProcessor(characters: characters);
+    for (var direction in KeyInputType.directionKeys) {
+      int id = direction.index;
+      HudButtonComponent button = buttons[id];
+      button.onPressed = () {
+        //player.moveTo(direction);
+        turnProcessor.process(direction);
+      };
+    }
+    //camera.follow(player);
+    super.onMount();
+  }
+  
+  @override
+  Future<void> construct() async {
+    await createBlock();
+    await createCharacter();
+    await createUI();
+    
   }
 
   createBlock() async {
@@ -76,7 +74,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
       for (int j = 0; j < floorList[i].length; j++) {
         int id = floorList[i][j];
         final component =
-            Blocks.initialize(entity: getSpriteEntityFromID(id: id))
+            Blocks.initialize(entity: assets.getSpriteEntityFromID(id: id))
               ..position = Vector2(j * oneBlockSize, i * oneBlockSize)
               ..anchor = Anchor.center
               ..coordinate = Vector2(j.toDouble(), i.toDouble());
@@ -90,7 +88,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
   createCharacter() {
     Vector2 playerPos = Vector2(6, 4);
     player =
-        Character.initialize(entity: getSpriteEntityFromID(id: 200)) as Player;
+        Character.initialize(entity: assets.getSpriteEntityFromID(id: 200)) as Player;
     player
       ..position =
           Vector2(playerPos.x * oneBlockSize, playerPos.y * oneBlockSize)
@@ -99,7 +97,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
 
     Vector2 enemyPos = Vector2(8, 6);
     enemy =
-        Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
+        Character.initialize(entity: assets.getSpriteEntityFromID(id: 251)) as Enemy;
     enemy
       ..position = Vector2(enemyPos.x * oneBlockSize, enemyPos.y * oneBlockSize)
       ..anchor = Anchor.center
@@ -107,7 +105,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
 
     Vector2 npcPos = Vector2(4, 4);
     npc =
-        Character.initialize(entity: getSpriteEntityFromID(id: 300)) as NPC;
+        Character.initialize(entity: assets.getSpriteEntityFromID(id: 300)) as NPC;
     npc
       ..position = Vector2(npcPos.x * oneBlockSize, npcPos.y * oneBlockSize)
       ..anchor = Anchor.center
@@ -149,7 +147,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
       logging.info("button size: ${button.size}");
     }
 
-    Sprite inventoryButtonSprite = getSpriteEntityFromID(id: 800).sprite;
+    Sprite inventoryButtonSprite = assets.getSpriteEntityFromID(id: 800).sprite;
     SpriteButtonComponent inventoryButton = SpriteButtonComponent(
       button: inventoryButtonSprite,
       buttonDown: inventoryButtonSprite,
@@ -162,7 +160,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
     };
 
       // create player status
-    SpriteComponent heart = getSpriteEntityFromID(id: 900).getSpriteComponent();
+    SpriteComponent heart = assets.getSpriteEntityFromID(id: 900).getSpriteComponent();
     heart
       ..position = Vector2(section, section / 2)
       ..size = Vector2.all(section / 2)
@@ -181,7 +179,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
         ),
       );
 
-    SpriteComponent sword = getSpriteEntityFromID(id: 900).getSpriteComponent();
+    SpriteComponent sword = assets.getSpriteEntityFromID(id: 900).getSpriteComponent();
     sword
       ..position = Vector2(section * 2, section / 2)
       ..size = Vector2.all(section / 2)
@@ -205,27 +203,7 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
     game.camera.viewport.addAll(buttons);
   }
 
-  @override
-  void onMount() {
-    TurnProcessor turnProcessor = TurnProcessor(characters: characters);
-    for (var direction in KeyInputType.directionKeys) {
-      int id = direction.index;
-      HudButtonComponent button = buttons[id];
-      button.onPressed = () {
-        //player.moveTo(direction);
-        turnProcessor.process(direction);
-      };
-    }
-    //camera.follow(player);
-    super.onMount();
-  }
 
-  @override
-  void update(double dt) {
-    // TODO: implement update
-    super.update(dt);
-    //print(camera.viewport.size);
-  }
 
   DungeonPage();
 }

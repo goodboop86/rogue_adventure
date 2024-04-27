@@ -42,13 +42,17 @@ class SpriteAssets {
     EquipmentType.values,
   ];
 
-  //List<SpriteEntity> assets = [];
+  List<SpriteEntity> assets = [];
+
+  SpriteEntity getSpriteEntityFromID({required int id}) {
+    return assets.firstWhere((e) => e.id == id);
+  }
 
   Future<Sprite> loadImage(String path) async {
     return await Sprite.load(path);
   }
 
-  Future<List<SpriteEntity>> loadAssets() async {
+  Future<void> loadAssets() async {
     List<List<dynamic>> spriteAssets = [
       BlockType.values,
       CharacterType.values,
@@ -56,14 +60,11 @@ class SpriteAssets {
       EquipmentType.values,
       UIType.values
     ];
-    List<SpriteEntity> assets = [];
     for (var asset in spriteAssets) {
       List<SpriteEntity> entities = await loadAsset(asset);
        assets.addAll(entities);
       }
-    return assets;
     }
-
 
   Future<List<SpriteEntity>> loadAsset(List<dynamic> elements) async {
     List<SpriteEntity> asset = [];
