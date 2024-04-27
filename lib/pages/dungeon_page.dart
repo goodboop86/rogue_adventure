@@ -172,9 +172,11 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
       logging.info("return button pressed");
       //gameRef.router.pop();
 
-        //game.router.pushNamed('start');
       game.world = worldManager.getWorldFromName(name: 'start');
-        game.router.pushReplacementNamed('start');
+
+      game.router.pushNamed('start');
+      //game.router.pushReplacementNamed('start');
+
       };
 
       // create player status

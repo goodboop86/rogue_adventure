@@ -4,9 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:rogue_adventure/main_game_page.dart';
 
-final countingStreamProvider = StreamProvider<int>((ref) {
-  return Stream.periodic(const Duration(seconds: 1), (inc) => inc);
-});
 
 void main() {
   Logger.root.level = Level.ALL; // すべてのログを取得します。

@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
+import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:rogue_adventure/main_game_page.dart';
 import 'package:rogue_adventure/pages/page.dart';
 
@@ -37,9 +38,41 @@ class StartPage extends Page with HasGameRef<GameRouter> {
       ..onPressed = () {
         game.world = worldManager.getWorldFromName(name: 'dungeon');
       game.router.pushNamed('dungeon');};
-    add(inventoryButton);
+    addAll([inventoryButton, RiverpodAwareTextComponent()]);
   }
 
   StartPage({required this.worldManager}){
   }
 }
+
+class RiverpodAwareTextComponent extends PositionComponent
+    with RiverpodComponentMixin, HasGameRef<GameRouter> {
+  late TextComponent textComponent;
+  int currentValue = 0;
+
+  /// [onMount] should be used over [onLoad] to initialize subscriptions,
+  /// which is only called if the [Component] was mounted.
+  /// Cancellation is handled for the user automatically inside [onRemove].
+  ///
+  /// [RiverpodComponentMixin.addToGameWidgetBuild] **must** be invoked in
+  /// your Component **before** [RiverpodComponentMixin.onMount] in order to
+  /// have the provided function invoked on
+  /// [RiverpodAwareGameWidgetState.build].
+  ///
+  /// From `flame_riverpod` 5.0.0, [WidgetRef.watch], is also accessible from
+  /// components.
+  @override
+  void onMount() {
+    addToGameWidgetBuild(() {
+      ref.listen(countingStreamProvider, (p0, p1) {
+        if (p1.hasValue) {
+          currentValue = p1.value!;
+          textComponent.text = '$currentValue';
+        }
+      });
+    });
+    super.onMount();
+    add(textComponent = TextComponent(position: game.size/2 + Vector2(0,100)));
+  }
+}
+
