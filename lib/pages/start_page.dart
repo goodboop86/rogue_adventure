@@ -3,6 +3,7 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:logging/logging.dart';
 import 'package:rogue_adventure/main_game_page.dart';
+import 'package:rogue_adventure/pages/page.dart';
 import 'package:rogue_adventure/systems/assets/image/loader.dart';
 import 'package:rogue_adventure/systems/state_handler/character_storage.dart';
 
@@ -15,7 +16,7 @@ import 'package:flame/events.dart';
 import 'package:flutter/rendering.dart';
 
 
-class StartPage extends Component with HasGameRef<GameRouter> {
+class StartPage extends Page with HasGameRef<GameRouter> {
   final Logger logging = Logger('MainGame');
   late Sprite playerSprite;
   late List<SpriteEntity> spriteEntities;

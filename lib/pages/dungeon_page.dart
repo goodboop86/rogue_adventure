@@ -4,6 +4,7 @@ import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
 import 'package:logging/logging.dart';
 import 'package:rogue_adventure/main_game_page.dart';
+import 'package:rogue_adventure/pages/page.dart';
 import 'package:rogue_adventure/systems/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
@@ -22,7 +23,7 @@ import '../systems/config.dart';
 import 'package:flutter/rendering.dart';
 
 
-class DungeonPage extends Component with HasGameRef<GameRouter> {
+class DungeonPage extends Page with HasGameRef<GameRouter> {
   final Logger logging = Logger('MainGame');
   late Player player;
   late Enemy enemy;
