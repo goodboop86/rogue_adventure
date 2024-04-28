@@ -1,5 +1,6 @@
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart' hide Route, OverlayRoute; // flutterとflameのRouteが衝突するため
@@ -31,15 +32,33 @@ class MainGamePageState extends State<MainGamePage> {
       body: RiverpodAwareGameWidget(
         game: GameRouter(camera: CameraComponent(viewport: MaxViewport())),
         key: gameWidgetKey,
+        overlayBuilderMap: {
+          'PauseMenu': (context, game) {
+            return const Center(
+              child: Text(
+                'This is an overlay!',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          },
+        }
       ),
     );
   }
 }
 
 
-class GameRouter extends FlameGame with HasGameRef, RiverpodGameMixin {
+class GameRouter extends FlameGame with HasGameRef, RiverpodGameMixin, TapCallbacks {
   late final RouterComponent router;
   WorldManager worldManager = WorldManager();
+
+  @override
+  void onTapUp(TapUpEvent event) {
+    if(overlays.isActive('PauseMenu')){
+      game.overlays.remove('PauseMenu');
+    }
+    super.onTapUp(event);
+  }
 
   @override
   void onLoad() {
@@ -59,7 +78,7 @@ class GameRouter extends FlameGame with HasGameRef, RiverpodGameMixin {
               );
             },
           ),  // OverlayRoute
-          'confirm-dialog': OverlayRoute.existing(),
+          //'confirm-dialog': OverlayRoute.existing(),
         },
         initialRoute: 'start',
       ),

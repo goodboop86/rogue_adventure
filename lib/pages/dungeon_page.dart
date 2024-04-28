@@ -158,7 +158,8 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
       ..size = Vector2.all(section)
       ..onPressed = () {
         //game.world = worldManager.getWorldFromName(name: 'inventory');
-        game.router.pushNamed('ok-dialog');
+        //game.router.pushOverlay('ok-dialog');
+        game.overlays.add('PauseMenu');
     };
 
     Sprite returnButtonSprite = assets.getSpriteEntityFromID(id: 801).sprite;
