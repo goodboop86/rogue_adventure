@@ -1,9 +1,8 @@
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
-import 'package:flutter/material.dart' hide Route; // flutterとflameのRouteが衝突するため
+import 'package:flutter/material.dart' hide Route, OverlayRoute; // flutterとflameのRouteが衝突するため
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rogue_adventure/pages/dungeon_page.dart';
 import 'package:rogue_adventure/pages/inventory_page.dart';
@@ -37,18 +36,6 @@ class MainGamePageState extends State<MainGamePage> {
   }
 }
 
-Widget _pauseMenuBuilder(BuildContext buildContext, DungeonPage game) {
-  return Center(
-    child: Container(
-      width: 100,
-      height: 100,
-      color: Colors.orange,
-      child: const Center(
-        child: Text('Paused'),
-      ),
-    ),
-  );
-}
 
 class GameRouter extends FlameGame with HasGameRef, RiverpodGameMixin {
   late final RouterComponent router;
@@ -61,7 +48,18 @@ class GameRouter extends FlameGame with HasGameRef, RiverpodGameMixin {
         routes: {
           'dungeon': Route(() => DungeonPage(worldManager: worldManager)),
           'start': Route(() => StartPage(worldManager: worldManager)),
-          'inventory': Route(InventoryPage.new),
+          'inventory': Route(() => InventoryPage(worldManager: worldManager), transparent: true),
+          'ok-dialog': OverlayRoute(
+                (context, game) {
+              return const Center(
+                child: Text(
+                  'This is an overlay!',
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            },
+          ),  // OverlayRoute
+          'confirm-dialog': OverlayRoute.existing(),
         },
         initialRoute: 'start',
       ),
@@ -75,6 +73,7 @@ class WorldManager {
   final Map<String, World> worlds = {
     'dungeon': World(),
     'start': World(),
+    'inventory': World(),
   };
 
   World getWorldFromName({required String name}) {

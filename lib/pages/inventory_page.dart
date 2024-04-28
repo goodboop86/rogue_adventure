@@ -30,16 +30,17 @@ class InventoryPage extends Page with HasGameRef<GameRouter> {
 
     Sprite inventoryButtonSprite = assets.getSpriteEntityFromID(id: 800).sprite;
     SpriteButtonComponent inventoryButton = SpriteButtonComponent(
+      priority: 1,
       button: inventoryButtonSprite,
       buttonDown: inventoryButtonSprite,
     )
-      ..position = Vector2(game.size.x - section * 2, game.size.y - section * 2)
-      ..size = Vector2.all(section)
+      ..position = Vector2(game.size.x/2 - section * 2, game.size.y/2 - section * 2)
+      ..size = Vector2.all(section*2)
       ..onPressed = () {
 
       };
     add(inventoryButton);
   }
-  InventoryPage();
+  InventoryPage({required super.worldManager});
 }
 

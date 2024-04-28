@@ -5,7 +5,6 @@ import 'package:rogue_adventure/main_game_page.dart';
 import 'package:rogue_adventure/pages/page.dart';
 
 class StartPage extends Page with HasGameRef<GameRouter> {
-  late WorldManager worldManager;
   @override
   Future<void> onLoad() async {
     game.world = worldManager.getWorldFromName(name: 'start');
@@ -41,8 +40,7 @@ class StartPage extends Page with HasGameRef<GameRouter> {
     addAll([inventoryButton, RiverpodAwareTextComponent()]);
   }
 
-  StartPage({required this.worldManager}){
-  }
+  StartPage({required super.worldManager});
 }
 
 class RiverpodAwareTextComponent extends PositionComponent

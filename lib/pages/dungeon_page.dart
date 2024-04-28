@@ -24,7 +24,6 @@ import 'package:flutter/rendering.dart';
 
 
 class DungeonPage extends Page with HasGameRef<GameRouter> {
-  late WorldManager worldManager;
   late Player player;
   late Enemy enemy;
   late NPC npc;
@@ -158,7 +157,8 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
       ..position = Vector2(game.size.x - section * 2, game.size.y - section * 2)
       ..size = Vector2.all(section)
       ..onPressed = () {
-
+        //game.world = worldManager.getWorldFromName(name: 'inventory');
+        game.router.pushNamed('ok-dialog');
     };
 
     Sprite returnButtonSprite = assets.getSpriteEntityFromID(id: 801).sprite;
@@ -173,10 +173,8 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
       //gameRef.router.pop();
 
       game.world = worldManager.getWorldFromName(name: 'start');
-
       game.router.pushNamed('start');
       //game.router.pushReplacementNamed('start');
-
       };
 
       // create player status
@@ -225,6 +223,6 @@ class DungeonPage extends Page with HasGameRef<GameRouter> {
 
 
 
-  DungeonPage({required this.worldManager}){
+  DungeonPage({required super.worldManager}){
   }
 }
