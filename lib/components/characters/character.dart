@@ -1,11 +1,12 @@
 import 'package:flame/components.dart';
+import 'package:rogue_adventure/main_game_page.dart';
 import 'package:rogue_adventure/systems/assets/image/common_type.dart';
 import 'package:rogue_adventure/systems/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
 import 'package:rogue_adventure/components/characters/npc.dart';
 import 'package:rogue_adventure/components/characters/player.dart';
 import 'package:rogue_adventure/systems/key_input_type.dart';
-import 'package:rogue_adventure/pages/game.dart';
+import 'package:rogue_adventure/pages/dungeon_page.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
 

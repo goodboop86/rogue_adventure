@@ -3,6 +3,8 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
 import 'package:logging/logging.dart';
+import 'package:rogue_adventure/main_game_page.dart';
+import 'package:rogue_adventure/pages/page.dart';
 import 'package:rogue_adventure/systems/assets/image/loader.dart';
 import 'package:rogue_adventure/components/characters/character.dart';
 import 'package:rogue_adventure/components/characters/enemy.dart';
@@ -18,29 +20,10 @@ import '../components/hud/hud_direction_button.dart';
 import '../components/characters/player.dart';
 import '../systems/config.dart';
 
-import 'package:flame/events.dart';
 import 'package:flutter/rendering.dart';
 
-class GameRouter extends FlameGame with KeyboardEvents, HasGameRef {
-  late final RouterComponent router;
 
-  @override
-  void onLoad() {
-    add(
-      router = RouterComponent(
-        routes: {
-          'home': Route(DungeonPage.new),
-          'start': Route(StartPage.new),
-        },
-        initialRoute: 'start',
-      ),
-    );
-  }
-  GameRouter({required super.camera});
-}
-
-class DungeonPage extends Component with HasGameRef<GameRouter> {
-  final Logger logging = Logger('MainGame');
+class DungeonPage extends Page with HasGameRef<GameRouter> {
   late Player player;
   late Enemy enemy;
   late NPC npc;
@@ -48,40 +31,41 @@ class DungeonPage extends Component with HasGameRef<GameRouter> {
   late List<SpriteEntity> spriteEntities;
   List<HudButtonComponent> buttons = [];
   CharacterStorage characters = CharacterStorage();
-
-  @override
-  //bool debugMode = true;
-
-  @override
-  void onGameResize(Vector2 size) {
-    //oneBlockSize = canvasSize.x / 16;
-    super.onGameResize(size);
-  }
-
-  SpriteEntity getSpriteEntityFromID({required int id}) {
-    return spriteEntities.firstWhere((e) => e.id == id);
-  }
-
-  // SpriteEntity getSpriteEntityFromName({required String name}) {
-  //   return spriteEntities.firstWhere((e) => e.name == name);
-  // }
+  
 
   @override
   Future<void> onLoad() async {
-    SpriteAssets assets = SpriteAssets();
-    var entities = await assets.loadAssets();
+    game.world = worldManager.getWorldFromName(name: 'dungeon');
 
-    spriteEntities = entities;
+    await assets.loadAssets();
+
+    await construct();
 
     super.onLoad();
-
-    await createBlock();
-
-    await createCharacter();
-
-    await createUI();
-
     game.camera.follow(player);
+  }
+
+  @override
+  void onMount() {
+    TurnProcessor turnProcessor = TurnProcessor(characters: characters);
+    for (var direction in KeyInputType.directionKeys) {
+      int id = direction.index;
+      HudButtonComponent button = buttons[id];
+      button.onPressed = () {
+        //player.moveTo(direction);
+        turnProcessor.process(direction);
+      };
+    }
+    //camera.follow(player);
+    super.onMount();
+  }
+  
+  @override
+  Future<void> construct() async {
+    await createBlock();
+    await createCharacter();
+    await createUI();
+    
   }
 
   createBlock() async {
@@ -92,7 +76,7 @@ class DungeonPage extends Component with HasGameRef<GameRouter> {
       for (int j = 0; j < floorList[i].length; j++) {
         int id = floorList[i][j];
         final component =
-            Blocks.initialize(entity: getSpriteEntityFromID(id: id))
+            Blocks.initialize(entity: assets.getSpriteEntityFromID(id: id))
               ..position = Vector2(j * oneBlockSize, i * oneBlockSize)
               ..anchor = Anchor.center
               ..coordinate = Vector2(j.toDouble(), i.toDouble());
@@ -106,7 +90,7 @@ class DungeonPage extends Component with HasGameRef<GameRouter> {
   createCharacter() {
     Vector2 playerPos = Vector2(6, 4);
     player =
-        Character.initialize(entity: getSpriteEntityFromID(id: 200)) as Player;
+        Character.initialize(entity: assets.getSpriteEntityFromID(id: 200)) as Player;
     player
       ..position =
           Vector2(playerPos.x * oneBlockSize, playerPos.y * oneBlockSize)
@@ -115,7 +99,7 @@ class DungeonPage extends Component with HasGameRef<GameRouter> {
 
     Vector2 enemyPos = Vector2(8, 6);
     enemy =
-        Character.initialize(entity: getSpriteEntityFromID(id: 251)) as Enemy;
+        Character.initialize(entity: assets.getSpriteEntityFromID(id: 251)) as Enemy;
     enemy
       ..position = Vector2(enemyPos.x * oneBlockSize, enemyPos.y * oneBlockSize)
       ..anchor = Anchor.center
@@ -123,7 +107,7 @@ class DungeonPage extends Component with HasGameRef<GameRouter> {
 
     Vector2 npcPos = Vector2(4, 4);
     npc =
-        Character.initialize(entity: getSpriteEntityFromID(id: 300)) as NPC;
+        Character.initialize(entity: assets.getSpriteEntityFromID(id: 300)) as NPC;
     npc
       ..position = Vector2(npcPos.x * oneBlockSize, npcPos.y * oneBlockSize)
       ..anchor = Anchor.center
@@ -165,7 +149,7 @@ class DungeonPage extends Component with HasGameRef<GameRouter> {
       logging.info("button size: ${button.size}");
     }
 
-    Sprite inventoryButtonSprite = getSpriteEntityFromID(id: 800).sprite;
+    Sprite inventoryButtonSprite = assets.getSpriteEntityFromID(id: 800).sprite;
     SpriteButtonComponent inventoryButton = SpriteButtonComponent(
       button: inventoryButtonSprite,
       buttonDown: inventoryButtonSprite,
@@ -173,12 +157,29 @@ class DungeonPage extends Component with HasGameRef<GameRouter> {
       ..position = Vector2(game.size.x - section * 2, game.size.y - section * 2)
       ..size = Vector2.all(section)
       ..onPressed = () {
-
-        // overlays.isActive('Inventory') ?
+        //game.world = worldManager.getWorldFromName(name: 'inventory');
+        //game.router.pushOverlay('ok-dialog');
+        game.overlays.add('PauseMenu');
     };
 
+    Sprite returnButtonSprite = assets.getSpriteEntityFromID(id: 801).sprite;
+    SpriteButtonComponent returnButton = SpriteButtonComponent(
+      button: returnButtonSprite,
+      buttonDown: returnButtonSprite,
+    )
+      ..position = Vector2(game.size.x - section * 4, game.size.y - section * 2)
+      ..size = Vector2.all(section)
+      ..onPressed = () {
+      logging.info("return button pressed");
+      //gameRef.router.pop();
+
+      game.world = worldManager.getWorldFromName(name: 'start');
+      game.router.pushNamed('start');
+      //game.router.pushReplacementNamed('start');
+      };
+
       // create player status
-    SpriteComponent heart = getSpriteEntityFromID(id: 900).getSpriteComponent();
+    SpriteComponent heart = assets.getSpriteEntityFromID(id: 900).getSpriteComponent();
     heart
       ..position = Vector2(section, section / 2)
       ..size = Vector2.all(section / 2)
@@ -197,7 +198,7 @@ class DungeonPage extends Component with HasGameRef<GameRouter> {
         ),
       );
 
-    SpriteComponent sword = getSpriteEntityFromID(id: 900).getSpriteComponent();
+    SpriteComponent sword = assets.getSpriteEntityFromID(id: 900).getSpriteComponent();
     sword
       ..position = Vector2(section * 2, section / 2)
       ..size = Vector2.all(section / 2)
@@ -217,76 +218,12 @@ class DungeonPage extends Component with HasGameRef<GameRouter> {
       );
 
 
-    game.camera.viewport.addAll([heart, heartText, sword, swordText, inventoryButton]);
+    game.camera.viewport.addAll([heart, heartText, sword, swordText, inventoryButton, returnButton]);
     game.camera.viewport.addAll(buttons);
   }
 
-  @override
-  void onMount() {
-    TurnProcessor turnProcessor = TurnProcessor(characters: characters);
-    for (var direction in KeyInputType.directionKeys) {
-      int id = direction.index;
-      HudButtonComponent button = buttons[id];
-      button.onPressed = () {
-        //player.moveTo(direction);
-        turnProcessor.process(direction);
-      };
-    }
-    //camera.follow(player);
-    super.onMount();
+
+
+  DungeonPage({required super.worldManager}){
   }
-
-  @override
-  void update(double dt) {
-    // TODO: implement update
-    super.update(dt);
-    //print(camera.viewport.size);
-  }
-
-
-  DungeonPage();
 }
-
-class StartPage extends Component with HasGameRef<GameRouter> {
-  final Logger logging = Logger('MainGame');
-  late Sprite playerSprite;
-  late List<SpriteEntity> spriteEntities;
-  CharacterStorage characters = CharacterStorage();
-
-  SpriteEntity getSpriteEntityFromID({required int id}) {
-    return spriteEntities.firstWhere((e) => e.id == id);
-  }
-
-  @override
-  Future<void> onLoad() async {
-    SpriteAssets assets = SpriteAssets();
-    var entities = await assets.loadAssets();
-    spriteEntities = entities;
-    super.onLoad();
-
-    await createUI();
-
-  }
-
-  createUI() async {
-    double gameWidth = game.size.x;
-    double gameHeight = game.size.y;
-    int ratioOfGameSize = 16;
-    double section = gameWidth / ratioOfGameSize;
-
-    Sprite inventoryButtonSprite = getSpriteEntityFromID(id: 800).sprite;
-    SpriteButtonComponent inventoryButton = SpriteButtonComponent(
-      button: inventoryButtonSprite,
-      buttonDown: inventoryButtonSprite,
-    )
-      ..position = Vector2(game.size.x - section * 2, game.size.y - section * 2)
-      ..size = Vector2.all(section)
-      ..onPressed = () {
-
-        // overlays.isActive('Inventory') ?
-      };
-    add(inventoryButton);
-  }
-  StartPage();
-}
-
